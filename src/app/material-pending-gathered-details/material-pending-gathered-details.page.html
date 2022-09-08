@@ -1,0 +1,154 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+      <p style="font-size: 1em">{{getPreVerificationData.FarmerName}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.Village_Eng}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_ENG}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_ENG}}</span>
+    </div>
+    <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight">
+      <p style="font-size: 1em">{{getPreVerificationData.FarmerNameHnd}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.Village_Mangal}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_MANGAL}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_MANGAL}}</span>
+    </div>
+    <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+      <span
+        style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{getPreVerificationData.CreationDate}}</span><br>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+          class="lang_change_color">/अ</span></span>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+          class="lang_change_color">/A</span></span>
+    </div>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-list>
+      <ion-row class="ion-padding-top" style="background-color:#eaeaea;padding-bottom: 0">
+        <ion-col size="4" class="ion-text-center">
+          <img alt="userimg" src="{{getPreVerificationData.FarmerPhoto}}" width="70px" height="70px"
+            style="border-radius: 180px" />
+
+        </ion-col>
+        <ion-col size="8">
+          <ion-row>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 1.0em;font-weight: 700">
+                <span *ngIf="httpClient.currentLanguage=='english'">{{getPreVerificationData.FarmerName}}</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'">{{getPreVerificationData.FarmerNameHnd}}</span>
+
+              </span></ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">
+                <span *ngIf="httpClient.currentLanguage=='english'"> Father Name :</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"> पिता का नाम :</span>
+
+
+                <span style="color: black">
+                  <span *ngIf="httpClient.currentLanguage=='english'"> {{getPreVerificationData.FatherName}}</span>
+                  <span *ngIf="httpClient.currentLanguage=='hindi'"> {{getPreVerificationData.FatherName}}</span>
+
+                </span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">
+                <span *ngIf="httpClient.currentLanguage=='english'"> Registration No. </span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"> पंजीकरण संख्या :</span>
+                <span style="color: black">{{getPreVerificationData.ApplicationNo}}</span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12">
+              <ion-buttons *ngIf="getPreVerificationData.MobileNo">
+                <ion-button class="mobileBtn">
+                  <span>+91 {{getPreVerificationData.MobileNo}}</span>
+                </ion-button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="colRow">
+        <ion-col class="ion-padding" size="12">
+          <span>
+            <span *ngIf="httpClient.currentLanguage=='english'"> Mobile number :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> मोबाइल नंबर :</span>
+          </span>
+          <span><b> <span
+                *ngIf="httpClient.currentLanguage=='english'">+91&nbsp;{{getPreVerificationData.MobileNo}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"> +91&nbsp;{{getPreVerificationData.MobileNo}}</span>
+            </b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>
+
+            <span *ngIf="httpClient.currentLanguage=='english'">Khasra Number :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> खसरा नंबर :</span>
+
+          </span>
+          <span><b>{{getPreVerificationData.KhasraNo}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>
+
+            <span *ngIf="httpClient.currentLanguage=='english'"> Father Name :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> पिता का नाम :</span>
+
+          </span>
+          <span><b>{{getPreVerificationData.FatherName}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12" *ngIf="getPreVerificationData.TotalLandArea">
+          <span>
+            <span *ngIf="httpClient.currentLanguage=='english'">Total Land :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">कुल भूमि ( हेक्टेयर ) :</span>
+          </span>
+          <span><b>{{getPreVerificationData.TotalLandArea}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>
+            <span *ngIf="httpClient.currentLanguage=='english'"> Registration No. :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> पंजीकरण संख्या :</span>
+          </span>
+          <span><b> <span *ngIf="httpClient.currentLanguage=='english'">{{getPreVerificationData.ApplicationNo}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"> {{getPreVerificationData.ApplicationNo}}</span>
+            </b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>
+            <span *ngIf="httpClient.currentLanguage=='english'"> Scheme Name :</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> योजना का नाम :</span>
+          </span>
+          <span><b> <span *ngIf="httpClient.currentLanguage=='english'">{{getPreVerificationData.SchemeNameEng}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"> {{getPreVerificationData.SchemeNameHnd}}</span>
+            </b> </span>
+        </ion-col>
+
+
+
+      </ion-row>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-buttons>
+          <ion-button class="assign_btn" type="button" (click)="submit()">
+            <span *ngIf="httpClient.currentLanguage=='english'">Material Gathered</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"> सामग्री एकत्रित की गयी </span>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+  </div>
+</ion-content>

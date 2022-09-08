@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sync Farm Pond</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let item of formPondList">
+    <ion-label>Application ID: &nbsp;&nbsp;{{item.applicationId}}</ion-label>
+    <ion-button (click)="submitCheckList(item.submissionData)">Sync</ion-button>
+  </ion-item>
+
+</ion-content>

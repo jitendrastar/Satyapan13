@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">ब्रांड नाम से चुनें या खोजें</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Select or Search Brand</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> अ/A</span>
+        <span *ngIf="httpClient.currentLanguage=='english'"> A/अ</span>
+      </ion-button>
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item button *ngFor="let item of items" (click)="selectDealer(item)">
+    <ion-label>
+      <h2 *ngIf="httpClient.currentLanguage=='hindi'">{{ item.CompanyBrandNameHi }}</h2>
+      <h2 *ngIf="httpClient.currentLanguage=='english'"> {{ item.CompanyBrandNameEn }}</h2>
+    </ion-label>
+  </ion-item>
+
+</ion-content>

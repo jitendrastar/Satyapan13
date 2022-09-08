@@ -1,0 +1,33 @@
+<ion-header class="header">
+    <ion-toolbar>
+        <!--    <ion-buttons slot="start">-->
+        <!--      <ion-back-button></ion-back-button>-->
+        <!--    </ion-buttons>-->
+        <ion-title *ngIf="httpClient.currentLanguage=='english'">Select Your Role</ion-title>
+        <ion-title *ngIf="httpClient.currentLanguage=='hindi'">अपनी भूमिका का चयन करें</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="httpClient.changeLanguage()">
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                        class="lang_change_color">/अ</span></span>
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                        class="lang_change_color">/A</span></span>
+            </ion-button>
+        </ion-buttons>
+
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-row class="textSmall" *ngFor="let data of httpClient.userList;let i=index" (click)="roleSelectedRow(data)">
+            <ion-col size="10">
+                <span *ngIf="httpClient.currentLanguage=='english'">{{data.RoleName_EN}} - {{data.OfficeNameEn}}</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'">{{data.RoleName_HI}} - {{data.OfficeNameHi}}</span>
+            </ion-col>
+            <ion-col size="2" class="ion-text-center">
+                <ion-icon class="arrow" name="chevron-forward-outline"></ion-icon>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+</ion-content>

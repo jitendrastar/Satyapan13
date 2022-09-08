@@ -1,0 +1,701 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons>
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Information of kisan seva kendra</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">किसान सेवा केंद्र की सूचना</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+      <ion-button *ngIf="httpClient.userList.length>0" (click)="changeRole()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Change Role</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">रोल बदले </span>
+      </ion-button>
+      <ion-button (click)="logoutPopUp()">
+        <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="home()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none" class="panchayatDropD" *ngIf="userType == 'AAO'">
+    <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Kisan Sewa Kendra is located
+    </ion-label>
+    <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">किसान सेवा केंद्र स्थित है </ion-label>
+    <ion-select [(ngModel)]="kskLocation" disabled={{formDisable}}>
+      <ion-select-option value="aaoOffice">
+        <span *ngIf="httpClient.currentLanguage=='hindi'">सहायक कृषि अधिकारी मुख्यालय पर </span>
+        <span *ngIf="httpClient.currentLanguage=='english'">At Assistant Agricultural Officer Headquarters</span>
+      </ion-select-option>
+      <ion-select-option value="asOffice">
+        <span *ngIf="httpClient.currentLanguage=='english'">At Agriculture Supervisor Headquarters</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">कृषि पर्यवेक्षक मुख्यालय पर</span>
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none" class="panchayatDropD"
+    *ngIf="(listOfPanchayatSamiti.length>0 && (kskLocation=='aaoOffice' || kskLocation=='asOffice')) || userType == 'AS'">
+    <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Select Panchayat Samiti</ion-label>
+    <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">पंचायत समिति का चयन करें</ion-label>
+    <ion-select [(ngModel)]="panchayatSamiti" (ionChange)="getGramPanchatayList()" disabled={{formDisable}}>
+      <ion-select-option *ngFor="let item of listOfPanchayatSamiti" value={{item.BLOCK_ID}}>
+        <span *ngIf="httpClient.currentLanguage=='english'">{{item.BLOCK_ENG}}</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.BLOCK_MANGAL}}</span>
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="userType == 'AAO'  && kskLocation=='aaoOffice'"
+    style="--ion-background-color:#ffffff;margin: -10px 0 30px 0" lines="none">
+    <ion-label *ngIf="httpClient.currentLanguage=='english'" style="color: #808080; font-size: 14px;">is also known as
+      Agriculture Supervisor KSK</ion-label>
+    <ion-label *ngIf="httpClient.currentLanguage=='hindi'" style="color: #808080; font-size: 14px;">कृषि पर्यवेक्षक
+      केएसके के रूप में भी जाना जाता है</ion-label>
+    <ion-checkbox disabled={{formDisable}} style="margin: 0 5px 0 0" slot="start" [(ngModel)]="isKnownFor"
+      (ionChange)="checkKnownFor(isKnownFor)" name="isKnownFor"></ion-checkbox>
+  </ion-item>
+
+  <ion-card>
+    <ion-row class="rowCls" (click)="basicInfoFlagDetails()">
+      <ion-col size="2" class="ion-text-center">
+        <span class="iconCls">1</span>
+      </ion-col>
+      <ion-col size="8" class="ion-text-left">
+        <span *ngIf="httpClient.currentLanguage=='english'"
+          style="font-size: 12px;font-weight: 600;line-height: 3;">General information of basic facilities -1</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"
+          style="font-size: 12px;font-weight: 600;line-height: 3;">आधारभूत सुविधाओं की सामान्य जानकारी -1 </span>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon *ngIf="!basicInfoFlag" class="iconClsCircle" name="caret-down-circle-outline"></ion-icon>
+        <ion-icon *ngIf="basicInfoFlag" class="iconClsCircle" name="caret-up-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="basicInfoFlag">
+      <ion-item lines="none" class="panchayatDropD"
+        *ngIf="(userType == 'AAO' && isKnownFor) || (userType == 'AS' && panchayatSamiti) || (kskLocation=='asOffice' && panchayatSamiti)">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Select GP Name of KSK</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'"> के एस के मुख्यालय की ग्राम पंचायत का
+          चयन करें</ion-label>
+        <ion-select [(ngModel)]="selectedGramPanchyatName" disabled={{formDisable}}>
+          <ion-select-option *ngFor="let item of listOfGramPanchayat" value="{{item.GP_CODE}}">
+            <span *ngIf="httpClient.currentLanguage=='english'">{{item.GP_ENG}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.GP_MANGAL}}</span>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Kisan Sewa Kendra Name</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">किसान सेवा केंद्र का नाम</ion-label>
+        <ion-input type="text" disabled={{formDisable}} [(ngModel)]="kskGP"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Full Address</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण पता लिखे </ion-label>
+        <ion-textarea rows="3" disabled={{formDisable}} [(ngModel)]="address"></ion-textarea>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Pincode</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">पिन कोड</ion-label>
+        <ion-input type="number" disabled={{formDisable}} maxlength="6" [(ngModel)]="pincode"
+          (focusout)="validate($event,0)"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Mobile No.</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">मोबाइल नंबर</ion-label>
+        <ion-input type="number" disabled={{formDisable}} maxlength="10" [(ngModel)]="mobile"
+          (focusout)="validate($event,1)"></ion-input>
+      </ion-item>
+      <div>
+        <ion-radio-group [(ngModel)]="isRempAtEntryGate">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Ramp at Entry Gate</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">प्रवेश द्वार पर रेम्प</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+        <ion-radio-group [(ngModel)]="electricConnection">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Electricity connection</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">विधुत कनेक्शन</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+        <ion-radio-group [(ngModel)]="waterConnection">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Water Connection</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">पानी का कनेक्शन</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+        <ion-radio-group [(ngModel)]="trainingHall">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Training Hall</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">प्रशिक्षण हॉल</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+        <ion-radio-group [(ngModel)]="toilets">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Toilets</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">शौचालय</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+        <!-- <ion-radio-group [(ngModel)]="internetConnection">
+          <ion-row style="margin: 13px 12px">
+            <ion-col size="6">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'">Internet Connection</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'">इंटरनेट कनेक्शन</ion-label>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+              <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+            </ion-col>
+            <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+              <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+              <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+              <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+            </ion-col>
+          </ion-row>
+        </ion-radio-group> -->
+      </div>
+    </div>
+
+  </ion-card>
+  <ion-card>
+    <ion-row class="rowCls" (click)="officeInfoFlagDetails()">
+      <ion-col size="2" class="ion-text-center">
+        <span class="iconCls">2</span>
+      </ion-col>
+      <ion-col size="8" class="ion-text-left">
+        <span *ngIf="httpClient.currentLanguage=='english'"
+          style="font-size: 12px;font-weight: 600;line-height: 3;">General information of basic facilities -2</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"
+          style="font-size: 12px;font-weight: 600;line-height: 3;">आधारभूत सुविधाओं की सामान्य जानकारी -2</span>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon *ngIf="!officeInfoFlag" class="iconClsCircle" name="caret-down-circle-outline"></ion-icon>
+        <ion-icon *ngIf="officeInfoFlag" class="iconClsCircle" name="caret-up-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="officeInfoFlag">
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Building of KSK</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">केएसके का भवन</ion-label>
+        <ion-select [(ngModel)]="kskBuilding" disabled={{formDisable}}>
+          <ion-select-option *ngFor="let item of listOfBuildingType" value="{{item.AgriLovValuesId}}">
+            <span *ngIf="httpClient.currentLanguage=='english'">{{item.AgriLovEn}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.AgriLovHi}}</span>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No. of Rooms(Apart from training
+          hall)</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">कमरों की संख्या (प्रशिक्षण हाल के
+          अलावा)</ion-label>
+        <ion-select [(ngModel)]="roomNo" disabled={{formDisable}}>
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+          <ion-select-option value="6">6</ion-select-option>
+          <ion-select-option value="7">7</ion-select-option>
+          <ion-select-option value="8">8</ion-select-option>
+          <ion-select-option value="9">9</ion-select-option>
+          <ion-select-option value="10">10</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Internet Service Provider
+        </ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">इंटरनेट सेवा प्रदाता</ion-label>
+
+        <ion-select [(ngModel)]="internetProvider" disabled={{formDisable}}>
+          <ion-select-option *ngFor="let item of listOfIsp" value="{{item.AgriLovValuesId}}">
+            <span *ngIf="httpClient.currentLanguage=='english'">{{item.AgriLovEn}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.AgriLovHi}}</span>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div style="padding: 3px 16px">
+        <span style="color: #32b47f" *ngIf="httpClient.currentLanguage=='english'">Computers and Printers Details</span>
+        <span style="color: #32b47f" *ngIf="httpClient.currentLanguage=='hindi'">कंप्यूटर एवं प्रिंटर्स का विवरण</span>
+        <!-- <span class="lineLCls"></span> -->
+        <!--        <span>&nbsp;&nbsp;&nbsp;&nbsp;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</span>-->
+      </div>
+      <div style="padding-top: 16px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+        <table>
+          <tr>
+            <th style="width:10%;text-align: center;">
+              <span *ngIf="httpClient.currentLanguage=='hindi'">उपकरण का नाम </span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Device name</span>
+            </th>
+            <th style="width:50%;">
+              <span *ngIf="httpClient.currentLanguage=='hindi'">संख्या</span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Count</span>
+            </th>
+            <th style="width:40%;">
+              <span *ngIf="httpClient.currentLanguage=='hindi'">आपूर्ति का वर्ष</span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Year of supply</span>
+            </th>
+          </tr>
+          <tr>
+            <td style="width:10%;text-align: center;">
+              <span *ngIf="httpClient.currentLanguage=='english'">Working Computers</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">चालू हालत में कंप्यूटर</span>
+            </td>
+            <td style="width:50%;">
+              <ion-input type="number" disabled={{formDisable}} [(ngModel)]="workingComputers"
+                (focusout)="validate($event,2)"></ion-input>
+            </td>
+            <td style="width:40%;">
+              <ion-datetime disabled={{formDisable}} displayFormat="YYYY" max="{{maxYear}}"
+                [(ngModel)]="workingComputersYearOfSupply"></ion-datetime>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:10%;text-align: center;">
+              <span *ngIf="httpClient.currentLanguage=='english'">Nonworking Computers</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">ख़राब हालत में कंप्यूटर</span>
+            </td>
+            <td style="width:50%;">
+              <ion-input type="number" disabled={{formDisable}} [(ngModel)]="nonWorkingComputers"
+                (focusout)="validate($event,3)"></ion-input>
+            </td>
+            <td style="width:40%;">
+              <ion-datetime disabled={{formDisable}} displayFormat="YYYY" max="{{maxYear}}"
+                [(ngModel)]="nonWorkingComputersYearOfSupply"></ion-datetime>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:10%;text-align: center;">
+              <span *ngIf="httpClient.currentLanguage=='english'">Working Printers</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">चालू हालत में प्रिंटर</span>
+            </td>
+            <td style="width:50%;">
+              <ion-input type="number" [(ngModel)]="workingPrinters" disabled={{formDisable}}
+                (focusout)="validate($event,4)"></ion-input>
+            </td>
+            <td style="width:40%;">
+              <ion-datetime disabled={{formDisable}} displayFormat="YYYY" max="{{maxYear}}"
+                [(ngModel)]="workingPrintersYearOfSupply">
+              </ion-datetime>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:10%;text-align: center;">
+              <span *ngIf="httpClient.currentLanguage=='english'">Nonworking Printers</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">ख़राब हालत में प्रिंटर</span>
+            </td>
+            <td style="width:50%;">
+              <ion-input type="number" [(ngModel)]="nonWorkingPrinters" disabled={{formDisable}}
+                (focusout)="validate($event,5)"></ion-input>
+            </td>
+            <td style="width:40%;">
+              <ion-datetime disabled={{formDisable}} displayFormat="YYYY" max="{{maxYear}}"
+                [(ngModel)]="nonworkingPrintersYearOfSupply"></ion-datetime>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+
+
+
+
+
+      <div style="padding: 3px 16px">
+        <span style="color: #32b47f" *ngIf="httpClient.currentLanguage=='english'">AAO & AS Details</span>
+        <span style="color: #32b47f" *ngIf="httpClient.currentLanguage=='hindi'">एएओ और एएस विवरण</span>
+
+      </div>
+      <ion-radio-group [(ngModel)]="aaoPosted">
+        <ion-row style="margin: 13px 12px">
+          <ion-col size="6">
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AAO Posted</ion-label>
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएओ पदस्थापित </ion-label>
+
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+            <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+            <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+      <!-- <ion-radio-group [(ngModel)]="aaoVacant">
+        <ion-row style="margin: 13px 12px">
+          <ion-col size="6">
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AAO Vacant</ion-label>
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएओ रिक्त </ion-label>
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+            <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+            <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+          </ion-col>
+        </ion-row>
+      </ion-radio-group> -->
+      <ion-radio-group [(ngModel)]="asPosted">
+        <ion-row style="margin: 13px 12px">
+          <ion-col size="6">
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AS Posted</ion-label>
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएस पदस्थापित</ion-label>
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+            <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+            <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+      <!-- <ion-radio-group [(ngModel)]="asVacant">
+        <ion-row style="margin: 13px 12px">
+          <ion-col size="6">
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AS Vacant</ion-label>
+            <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएस रिक्त </ion-label>
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">Yes</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">हाँ </ion-label>
+            <ion-radio disabled={{formDisable}} value="True"></ion-radio>
+
+          </ion-col>
+          <ion-col size="3" style="padding: 0 16px;line-height: 1.5">
+            <ion-label *ngIf="httpClient.currentLanguage=='english'" class="yesNoCls">No</ion-label>
+            <ion-label *ngIf="httpClient.currentLanguage=='hindi'" class="yesNoCls">नहीं</ion-label>
+            <ion-radio disabled={{formDisable}} value="False"></ion-radio>
+
+          </ion-col>
+        </ion-row>
+      </ion-radio-group> -->
+      <!--      <ion-item lines="none" class="panchayatDropD">-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AAO Posted</ion-label>-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएओ पदस्थापित </ion-label>-->
+      <!--        <ion-input type="number" [(ngModel)]="aaoPosted" disabled={{formDisable}}></ion-input>-->
+      <!--      </ion-item>-->
+      <!--      <ion-item lines="none" class="panchayatDropD">-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AAO Vacant</ion-label>-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएओ रिक्त </ion-label>-->
+      <!--        <ion-input type="number" [(ngModel)]="aaoVacant" disabled={{formDisable}}></ion-input>-->
+      <!--      </ion-item>-->
+      <!--      <ion-item lines="none" class="panchayatDropD">-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AS Posted</ion-label>-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएस पदस्थापित</ion-label>-->
+      <!--        <ion-input type="number" [(ngModel)]="asPosted" disabled={{formDisable}}></ion-input>-->
+      <!--      </ion-item>-->
+      <!--      <ion-item lines="none" class="panchayatDropD">-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">AS Vacant</ion-label>-->
+      <!--        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">एएस रिक्त </ion-label>-->
+      <!--        <ion-input type="number" [(ngModel)]="asVacant" disabled={{formDisable}}></ion-input>-->
+      <!--      </ion-item>-->
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="stacked" *ngIf="httpClient.currentLanguage=='english'">Any other Related Information
+        </ion-label>
+        <ion-label position="stacked" *ngIf="httpClient.currentLanguage=='hindi'">कोई भी अन्य जानकारी हो तो लिखें
+        </ion-label>
+        <ion-textarea rows="5" [(ngModel)]="otherRelativeInfo" disabled={{formDisable}}></ion-textarea>
+      </ion-item>
+    </div>
+  </ion-card>
+  <ion-card>
+    <ion-row class="rowCls" (click)="officeAssetInfoFlagDetails()">
+      <ion-col size="2" class="ion-text-center">
+        <span class="iconCls">3</span>
+      </ion-col>
+      <ion-col size="8" class="ion-text-left">
+        <span style="font-size: 12px;font-weight: 600;line-height: 3;"
+          *ngIf="httpClient.currentLanguage=='english'">Office Assets Information</span>
+        <span style="font-size: 12px;font-weight: 600;line-height: 3;"
+          *ngIf="httpClient.currentLanguage=='hindi'">कार्यालय संपत्ति जानकारी</span>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon *ngIf="!officeAssetInfoFlag" class="iconClsCircle" name="caret-down-circle-outline"></ion-icon>
+        <ion-icon *ngIf="officeAssetInfoFlag" class="iconClsCircle" name="caret-up-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <!--
+    <div *ngIf="officeAssetInfoFlag" >
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Tables</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">टेबल की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfTables" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of office & Visitors Chairs</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">कार्यालय और आगंतुक कुर्सियों की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfOfficeVisitChair" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Floor</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">मंजिल की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfFloor" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Almirah</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">अलमीरा की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfAlmirah" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Book Self / Rack</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">बुक सेल्फ / रैक की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfBookSelfRack" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Box</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">बॉक्स की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfBox" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of White Board</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">व्हाइट बोर्ड की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfWhiteBoard" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">No of Mug & Bucket</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">मग और बाल्टी की संख्या</ion-label>
+        <ion-input type="text" [(ngModel)]="noOfMugBucket" ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Insects Pest Chart</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">कीटनाशक चार्ट</ion-label>
+        <ion-input type="text" [(ngModel)]="insectPestChart" ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Spacy main sample & sample container</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">स्पाइस मुख्य नमूना और नमूना कंटेनर</ion-label>
+        <ion-input type="text" [(ngModel)]="sampleContainer" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Display Board</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">प्रदर्शन बोर्ड</ion-label>
+        <ion-input type="text" [(ngModel)]="displayBoard" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Majoring tap & Electronic weighing machine</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">मेजर टैप एंड इलेक्ट्रॉनिक वेटिंग मशीन</ion-label>
+        <ion-input type="text" [(ngModel)]="tapAndMachine" ></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="panchayatDropD">
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='english'">Seed Dressing Drum</ion-label>
+        <ion-label position="floating" *ngIf="httpClient.currentLanguage=='hindi'">बीज ड्रेसिंग ड्रम</ion-label>
+        <ion-input type="text" [(ngModel)]="seedDressingDrum" ></ion-input>
+      </ion-item>
+
+    </div>
+-->
+
+    <div *ngIf="officeAssetInfoFlag"
+      style="padding-top: 16px;padding-left: 5px;padding-right: 5px;padding-bottom: 5px;">
+      <table>
+        <tr>
+          <th style="width:10%;text-align: center;">
+            <span *ngIf="httpClient.currentLanguage=='hindi'">क्र. स.</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">No.</span>
+          </th>
+          <th style="width:50%;">
+            <span *ngIf="httpClient.currentLanguage=='hindi'">संपत्ति</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">Asset</span>
+          </th>
+          <th style="width:40%;">
+            <span *ngIf="httpClient.currentLanguage=='hindi'">संख्या</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">Count</span>
+          </th>
+        </tr>
+        <tr *ngFor="let item of listOfOfficeAssets;let i=index">
+          <td style="width:10%;text-align: center;">
+            {{i+1}}
+          </td>
+          <td style="width:50%;">
+            <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.KSK_AssetsNameHi}}</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">{{item.KSK_AssetsNameEn}}</span>
+          </td>
+          <td style="width:40%;">
+            <ion-input type="number" disabled={{formDisable}} [(ngModel)]="item.KSK_AssetsAns"
+              (focusout)="IsNumeric($event,i)"></ion-input>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </ion-card>
+  <ion-card>
+    <ion-row class="rowCls" (click)="geoTaggDetails()">
+      <ion-col size="2" class="ion-text-center">
+        <span class="iconCls">4</span>
+      </ion-col>
+      <ion-col size="8" class="ion-text-left">
+        <span *ngIf="httpClient.currentLanguage=='english'"
+          style="font-size: 14px;font-weight: 600;line-height: 3;">Geo-Tagged Photo</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"
+          style="font-size: 14px;font-weight: 600;line-height: 3;">जियोटैग्ड फोटो</span>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <ion-icon *ngIf="!geoTaggFlag" class="iconClsCircle" name="caret-down-circle-outline"></ion-icon>
+        <ion-icon *ngIf="geoTaggFlag" class="iconClsCircle" name="caret-up-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="geoTaggFlag">
+      <ion-row class="geoTagRow1">
+        <ion-col size="2" class="ion-text-center" (click)="takePhoto(0)">
+          <ion-icon name="camera-outline" style="font-size: 45px;color: #32b47f"></ion-icon>
+        </ion-col>
+        <ion-col size="8" class="ion-text-left" *ngIf="httpClient.currentLanguage=='english'" (click)="takePhoto(0)">
+          <span class="geoTaggRow2">Take Inside Photo</span><br>
+          <!--          <span style="font-size: 14px;" *ngIf="!insidePhoto">Upload photo</span>-->
+          <span style="font-size: 14px;" *ngIf="insidePhoto">Photo Uploaded</span>
+        </ion-col>
+        <ion-col (click)="takePhoto(0)" size="8" class="ion-text-left" *ngIf="httpClient.currentLanguage=='hindi'">
+          <span class="geoTaggRow2">अन्दर की फोटो ले</span><br>
+          <!--          <span style="font-size: 14px;" *ngIf="!insidePhoto">फोटो अपलोड करें</span>-->
+          <span style="font-size: 14px;" *ngIf="insidePhoto">फोटो अपलोड की गयी</span>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center" *ngIf="!insidePhoto">
+          <ion-icon name="cloud-upload-outline" style="font-size: 35px;margin: 5px 0;color: #dedede"></ion-icon>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center" *ngIf="insidePhoto" (click)="viewPhoto(insidePhoto)">
+          <ion-icon name="eye-outline" style="font-size: 35px;color: #32b47f;margin: 5px 0"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row class="geoTagRow1">
+        <ion-col size="2" class="ion-text-center" (click)="takePhoto(1)">
+          <ion-icon name="camera-outline" style="font-size: 45px;color: #32b47f"></ion-icon>
+        </ion-col>
+        <ion-col size="8" class="ion-text-left" *ngIf="httpClient.currentLanguage=='english'" (click)="takePhoto(1)">
+          <span class="geoTaggRow2">Take Outside Photo</span><br>
+          <!--          <span style="font-size: 14px;" *ngIf="!outsidePhoto">Upload photo</span>-->
+          <span style="font-size: 14px;" *ngIf="outsidePhoto">Photo Uploaded</span>
+        </ion-col>
+        <ion-col size="8" class="ion-text-left" *ngIf="httpClient.currentLanguage=='hindi'" (click)="takePhoto(1)">
+          <span class="geoTaggRow2">बाहर की फोटो ले </span><br>
+          <!--          <span style="font-size: 14px;" *ngIf="!outsidePhoto">फोटो अपलोड करें</span>-->
+          <span style="font-size: 14px;" *ngIf="outsidePhoto">फोटो अपलोड की गयी</span>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center" *ngIf="!outsidePhoto">
+          <ion-icon name="cloud-upload-outline" style="font-size: 35px;margin: 5px 0;color: #dedede"></ion-icon>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center" *ngIf="outsidePhoto" (click)="viewPhoto(outsidePhoto)">
+          <ion-icon name="eye-outline" style="font-size: 35px;color: #32b47f;margin: 5px 0"></ion-icon>
+        </ion-col>
+
+      </ion-row>
+    </div>
+  </ion-card>
+  <ion-button type="button" class="login_btn" (click)="submit()"
+    *ngIf="httpClient.currentLanguage=='english' && !formDisable">Submit
+  </ion-button>
+  <ion-button type="button" class="login_btn" (click)="submit()"
+    *ngIf="httpClient.currentLanguage=='hindi' && !formDisable">जमा करें
+  </ion-button>
+</ion-content>

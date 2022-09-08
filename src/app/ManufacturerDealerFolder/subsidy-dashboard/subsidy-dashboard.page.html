@@ -1,0 +1,758 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english' && header=='1'">Pre Verification</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='english' && header=='2'">Post Verification</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">{{headerEngHnd}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                        class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='english'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='hindi'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Normal View-->
+  <div *ngIf="!httpClient.loadingFlag">
+    <div *ngIf="httpClient.currentLanguage=='english'">
+      <ion-row class="filterRow">
+        <ion-col size="9">
+        </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <ion-icon class="checkClsG" (click)="gridSelectFunction()" *ngIf="gridSelected" name="grid-outline">
+          </ion-icon>
+
+          <ion-icon class="checkCls" (click)="gridSelectFunction()" *ngIf="!gridSelected" name="grid-outline">
+          </ion-icon>
+
+          <ion-icon class="listClsG" (click)="listSelectFunction()" *ngIf="listSelected" name="list-outline">
+          </ion-icon>
+
+          <ion-icon class="listCls" (click)="listSelectFunction()" *ngIf="!listSelected" name="list-outline">
+          </ion-icon>
+        </ion-col>
+        <!--                <ion-col size="2" class="ion-text-left">-->
+        <!--                    <ion-icon class="listClsG" (click)="listSelectFunction()" *ngIf="listSelected"-->
+        <!--                              name="list-outline"></ion-icon>-->
+        <!---->
+        <!--                    <ion-icon class="listCls" (click)="listSelectFunction()" *ngIf="!listSelected"-->
+        <!--                              name="list-outline"></ion-icon>-->
+        <!--                </ion-col>-->
+      </ion-row>
+      <ion-row style="font-size: 0.9em">
+        <ion-col size="1"></ion-col>
+        <ion-col class="pctRow ion-no-padding ion-text-center" size="3">
+          <span style="color:orange">{{totalPending}}</span>
+          <span style="color:gray"> Pending </span>
+        </ion-col>
+        <ion-col class="pctRow ion-no-padding ion-text-center" size="4">
+          <span style="color:#00AB50">{{totalComplete}}</span>
+          <span style="color:gray"> Completed</span>
+        </ion-col>
+
+        <ion-col class="ion-no-padding ion-text-center" size="3">
+          <span style="color:black;font-weight: bold">{{total}}</span>
+          <span style="color:gray;font-weight: bold"> Total</span>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+
+      </ion-row>
+      <ion-grid *ngIf="gridSelected">
+        <ion-row>
+<!--          <ion-col size="6" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">-->
+          <ion-col size="6" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">
+            <ion-row>
+              <ion-col size="12">
+
+                <img *ngIf="data.DashboardImg" class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="{{data.SubsidySchemeEn}}" />
+                <img *ngIf="!data.DashboardImg" class="imgClassSubsidy" src="assets/imgs/demoimg.png" alt="{{data.SubsidySchemeEn}}" />
+
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="ion-text-center">
+                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>
+              </ion-col>
+              <ion-col size="6" class="ion-text-right" style="border-right: 1px solid lightgray">
+                <span *ngIf="header=='1'" style="color:orange">{{data.TotalPending}}</span>
+                <span *ngIf="header!='1'" style="color:orange">{{data.TotalDealerAssignPending}}</span>
+              </ion-col>
+              <ion-col size="6">
+                <span *ngIf="header=='1'" style="color:#00AB50">{{data.TotalCompleted}}</span>
+                <span *ngIf="header!='1'" style="color:#00AB50">{{data.TotalDealerAssignCompleted}}</span>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="listSelected">
+
+<!--        <ion-row class="ion-margin-top" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">-->
+        <ion-row class="ion-margin-top" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">
+          <ion-col size="6">
+
+            <img *ngIf="data.DashboardImg" class="ion-text-center" style="border-radius: 10px;width: 189px;height: 73px;" src="{{data.DashboardImg}}"  alt="farmPond"/>
+            <img *ngIf="!data.DashboardImg" class="ion-text-center" style="border-radius: 10px;width: 189px;height: 73px;" src="assets/imgs/demoimg.png" alt="farmPond"/>
+
+          </ion-col>
+          <ion-col size="6" class="ion-text-center">
+            <span style="font-weight: 600;font-size: 0.8em;">{{data.SubsidySchemeEn}}</span>
+            <h6 class="ion-text-center" style="margin-top: 2px">
+              <span *ngIf="header=='1'" style="color:orange;border-right: 1px solid lightgray">{{data.TotalPending}}&nbsp;&nbsp;&nbsp;</span>
+              <span *ngIf="header!='1'" style="color:orange;border-right: 1px solid lightgray">{{data.TotalDealerAssignPending}}&nbsp;&nbsp;&nbsp;</span>
+
+              <span *ngIf="header=='1'" class="ion-text-right" style="color: #1e854e">&nbsp;&nbsp;{{data.TotalCompleted}}</span>
+              <span *ngIf="header!='1'" class="ion-text-right" style="color: #1e854e">&nbsp;&nbsp;{{data.TotalDealerAssignCompleted}}</span>
+
+            </h6>
+
+          </ion-col>
+        </ion-row>
+
+
+      </div>
+    </div>
+    <div *ngIf="httpClient.currentLanguage=='hindi'">
+      <ion-row class="filterRow">
+        <ion-col size="9">
+         </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <ion-icon class="checkClsG" (click)="gridSelectFunction()" *ngIf="gridSelected" name="grid-outline">
+          </ion-icon>
+
+          <ion-icon class="checkCls" (click)="gridSelectFunction()" *ngIf="!gridSelected" name="grid-outline">
+          </ion-icon>
+
+          <ion-icon class="listClsG" (click)="listSelectFunction()" *ngIf="listSelected" name="list-outline">
+          </ion-icon>
+
+          <ion-icon class="listCls" (click)="listSelectFunction()" *ngIf="!listSelected" name="list-outline">
+          </ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row style="font-size: 0.9em">
+        <ion-col size="1"></ion-col>
+        <ion-col class="pctRow ion-no-padding ion-text-center" size="3">
+          <span style="color:orange">{{totalPending}}</span>
+          <span style="color:gray">&nbsp;लंबित</span>
+        </ion-col>
+        <ion-col class="pctRow ion-no-padding ion-text-center" size="4">
+          <span style="color:#00AB50">{{totalComplete}}</span>
+          <span style="color:gray">&nbsp;पूर्ण</span>
+        </ion-col>
+
+        <ion-col class="ion-no-padding ion-text-center" size="3">
+          <span style="color:black;font-weight: bold">{{total}}</span>
+          <span style="color:gray;font-weight: bold">&nbsp;कुल</span>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+
+      </ion-row>
+      <ion-grid *ngIf="gridSelected">
+        <ion-row>
+<!--          <ion-col size="6" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">-->
+          <ion-col size="6" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">
+            <ion-row>
+              <ion-col size="12">
+                <img *ngIf="data.DashboardImg" class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="{{data.SubsidySchemeHi}}" />
+                <img *ngIf="!data.DashboardImg" class="imgClassSubsidy" src="assets/imgs/demoimg.png" alt="{{data.SubsidySchemeHi}}" />
+
+<!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="{{data.SubsidySchemeHi}}" />-->
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="ion-text-center">
+                <span style="font-weight: 600">{{data.SubsidySchemeHi}}</span>
+              </ion-col>
+              <ion-col size="6" class="ion-text-right" style="border-right: 1px solid lightgray">
+                <span *ngIf="header=='1'" style="color:orange">{{data.TotalPending}}</span>
+                <span *ngIf="header!='1'" style="color:orange">{{data.TotalDealerAssignPending}}</span>
+              </ion-col>
+              <ion-col size="6">
+                <span *ngIf="header=='1'" style="color:#00AB50">{{data.TotalCompleted}}</span>
+                <span *ngIf="header!='1'" style="color:#00AB50">{{data.TotalDealerAssignCompleted}}</span>
+              </ion-col>
+
+            </ion-row>
+
+          </ion-col>
+
+
+        </ion-row>
+      </ion-grid>
+      <div *ngIf="listSelected">
+
+<!--        <ion-row class="ion-margin-top" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">-->
+        <ion-row class="ion-margin-top" *ngFor="let data of getHortiSubsidyDashboard" (click)="onSubsidyClick(data.SubsidySchemeId)">
+          <ion-col size="6">
+<!--            <img class="ion-text-center" style="border-radius: 10px;width:189px;height:73px" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            <img *ngIf="data.DashboardImg" class="ion-text-center" style="border-radius: 10px;width: 189px;height: 73px;" src="{{data.DashboardImg}}"  alt="farmPond"/>
+            <img *ngIf="!data.DashboardImg" class="ion-text-center" style="border-radius: 10px;width: 189px;height: 73px;" src="assets/imgs/demoimg.png" alt="farmPond"/>
+
+          </ion-col>
+          <ion-col size="6" class="ion-text-center">
+            <span style="font-weight: 600;font-size: 0.8em;">{{data.SubsidySchemeHi}}</span>
+            <h6 class="ion-text-center" style="margin-top: 2px">
+              <span *ngIf="header=='1'" style="color:orange;border-right: 1px solid lightgray">{{data.TotalPending}}&nbsp;&nbsp;&nbsp;</span>
+              <span *ngIf="header!='1'" style="color:orange;border-right: 1px solid lightgray">{{data.TotalDealerAssignPending}}&nbsp;&nbsp;&nbsp;</span>
+              <span *ngIf="header=='1'" class="ion-text-right" style="color: #1e854e">&nbsp;&nbsp;{{data.TotalCompleted}}</span>
+              <span *ngIf="header!='1'" class="ion-text-right" style="color: #1e854e">&nbsp;&nbsp;{{data.TotalDealerAssignCompleted}}</span>
+            </h6>
+
+          </ion-col>
+        </ion-row>
+
+      </div>
+    </div>
+  </div>
+  <!--Skeleton View-->
+  <div *ngIf="httpClient.loadingFlag">
+    <ion-row class="filterRow ion-padding ">
+      <ion-col size="8">
+
+      </ion-col>
+      <ion-col size="2" class="ion-text-end">
+
+        <ion-skeleton-text animated style="width: 50%;margin-left: 10px"></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="2" class="ion-text-end">
+        <ion-skeleton-text animated style="width: 50%;margin-left: 10px"></ion-skeleton-text>
+
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: 12px;margin-left: 30px">
+      <ion-col size="1"></ion-col>
+      <ion-col class="pctRow ion-no-padding ion-text-center" size="3">
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </ion-col>
+      <ion-col class="pctRow ion-no-padding ion-text-center" size="3">
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+
+      </ion-col>
+
+      <ion-col class="ion-no-padding ion-text-center" size="3">
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+    </ion-row>
+    <ion-grid *ngIf="gridSelected">
+      <ion-row>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="12">
+              <ion-skeleton-text animated class="imgClassSubsidy" style="width: 100%"></ion-skeleton-text>
+              <!--                <img class="imgClassSubsidy" src="{{data.DashboardImg}}" alt="farmPond" />-->
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12" class="ion-text-center">
+              <!--                <span style="font-weight: 600">{{data.SubsidySchemeEn}}</span>-->
+              <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+    <div *ngIf="listSelected">
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-margin-top">
+        <ion-col size="6">
+          <!--                        <img class="ion-text-center" style="border-radius: 10px" src="{{data.DashboardImg}}"-->
+          <!--                             alt="farmPond" width="150px"/>-->
+          <ion-skeleton-text animated class="ion-text-center"
+                             style="border-radius: 10px;width: 150px;height:60px"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%;margin-left: 40px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6">
+              <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+
+
+
+    </div>
+  </div>
+</ion-content>
+
+
+<!-- Normal View
+<div *ngIf="!httpClient.loadingFlag">
+  &lt;!&ndash;    <ion-footer *ngIf="header=='1' && roleName_EN=='AAO Role'">&ndash;&gt;
+  <ion-footer *ngIf="header=='1' && pendingRow==true">
+    <ion-row>
+      <ion-col size="6" class="ion-padding" (click)="assignedToDealer('assignToDealer')">
+        <ion-buttons>
+          <ion-button *ngIf="httpClient.currentLanguage=='english'" class="assignAS_btn" type="button">
+            Assigned to Dealer
+          </ion-button>
+          <ion-button *ngIf="httpClient.currentLanguage=='hindi'" class="assignAS_btn" type="button">डीलर को
+            सौंपें
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="6" class="ion-padding" (click)="manageAs()">
+        <ion-buttons>
+          <ion-button *ngIf="httpClient.currentLanguage=='english'" class="manageAS_btn" type="button">Manage
+            Dealer
+          </ion-button>
+          <ion-button *ngIf="httpClient.currentLanguage=='hindi'" class="manageAS_btn" type="button">डीलर द्वारा
+            सत्यापित </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+  </ion-footer>
+</div>
+&lt;!&ndash;Skeleton View&ndash;&gt;
+<div *ngIf="httpClient.loadingFlag">
+
+  &lt;!&ndash;    <ion-footer *ngIf="header=='1' && roleName_EN=='AAO Role'">&ndash;&gt;
+  <ion-footer *ngIf="header=='1' && pendingRow==true">
+    <ion-row>
+      <ion-col size="6" class="ion-padding ion-text-center">
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+
+        &lt;!&ndash;          <ion-button  *ngIf="httpClient.currentLanguage=='english'" class="assignAS_btn" type="button" >Assigned to AS</ion-button>&ndash;&gt;
+        &lt;!&ndash;          <ion-button  *ngIf="httpClient.currentLanguage=='hindi'" class="assignAS_btn" type="button" >AS को सौंपा गया</ion-button>&ndash;&gt;
+      </ion-col>
+      <ion-col size="6" class="ion-padding ion-text-center">
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+
+        &lt;!&ndash;          <ion-button  *ngIf="httpClient.currentLanguage=='english'" class="manageAS_btn" type="button">Manage AS</ion-button>&ndash;&gt;
+        &lt;!&ndash;          <ion-button  *ngIf="httpClient.currentLanguage=='hindi'" class="manageAS_btn" type="button">AS प्रबंधित करें</ion-button>&ndash;&gt;
+      </ion-col>
+    </ion-row>
+
+  </ion-footer>
+</div>-->
+
+<!--</div>-->

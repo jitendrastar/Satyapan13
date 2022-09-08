@@ -1,0 +1,184 @@
+ .ion-page  {
+  height: auto;
+  width: auto;
+  margin: 30%;
+  border: 1px solid;
+}
+
+.toolbar-title {
+  padding: 0 25px;
+  font-size: 1em;
+  color: #424242;
+  font-weight: 400;
+  text-align: left;
+}
+
+.bgColorClass {
+   --background: url('../../../assets/imgs/bgImg.jpg') no-repeat center 270px ;
+}
+
+h4 {
+  font-weight: 600;
+  margin-left: 10px;
+  color: #2f353b;
+  margin-top: -10px;
+}
+
+h6 {
+
+  font-weight: 500;
+  line-height: 1.2;
+  margin-left: 10px;
+  color: #a7a7a7;
+}
+
+ion-card {
+  margin: 20px 0 0 10px;
+  width: calc(100% - 20px);
+  background: #fff;
+  box-shadow: 0 0 40px #00000024;
+}
+
+.cardClass {
+  border-radius: 10px;
+}
+
+.preClass {
+  font-size: 1em;
+  font-weight: 700;
+
+}
+
+.selfAAOClass {
+  font-size: 1em;
+  font-weight: 600;
+  color: #6b6b6b;
+}
+
+.yellowText {
+  font-size: 1em;
+  color: #f5ae05;
+}
+
+.greenText {
+  font-size: 1em;
+  color: #36b17b;
+}.blueText {
+  font-size: 1em;
+  color: #3a7be0;
+}
+
+.pcClass {
+  font-size: 1em;
+  color: #999999;
+  line-height: 25px;
+
+}
+
+//.colBorder {
+//  border-bottom: 1px solid #eeeeee;
+//}
+
+.colBorderPrePost {
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 0;
+
+}
+
+.colBorderGreen {
+  border-bottom: 2px solid #e5f3e6;
+}
+
+.colColor {
+  background-color: #f4fef3;
+  color: #b4b4b4;
+}
+
+ion-icon {
+  display: inline-block;
+  font-size: 1.8em;
+}
+
+.confirmClass {
+  color: #747b74;
+  font-weight: 700;
+  line-height: 23px;
+  margin: 0 3px;
+  vertical-align: top;
+}
+
+
+.iconClass {
+  font-size: 2em;
+  font-weight: 700;
+  color: #38a56e;
+}
+
+ion-badge {
+  padding: 0;
+  display: inline-block;
+  min-width: 10px;
+  font-size: 2em;
+  /* font-weight: bold; */
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.badge {
+  border-radius: 0;
+  color: #38a56e;
+  background-color: white;
+}
+
+.badgeClass {
+  position: ABSOLUTE;
+  TOP: -4PX;
+  margin-LEFT: -10px;
+  color: #fb7070;
+  background: transparent;
+}
+
+.wlcomeClass {
+  color: #999999;
+  margin-left: 10px;
+  line-height: 20px;
+}
+
+span.lang_change {
+  color: #59AD1C;
+  font-weight: 400;
+}
+
+span.lang_change_color {
+  color: #647B8C;
+  font-weight: 400;
+}
+
+.textSmall {
+  padding: 3px 8px;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-bottom: 1px solid #dedede;
+  font-family: sans-serif;
+}
+
+
+ion-title {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}
+
+//ion-card {
+//  ion-col {
+//    border-bottom: 1px solid #dedede;
+//  }
+//}

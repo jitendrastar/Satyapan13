@@ -1,0 +1,93 @@
+<ion-content>
+  <div *ngIf="httpClient.loadingFlag" class="loadImg">
+    <img src="assets/imgs/loading.gif" alt="load" >
+  </div>
+  <div *ngIf="!httpClient.loadingFlag">
+
+    <div *ngIf="this.httpClient.currentLanguage=='english'">
+      <ion-grid class="ion-no-padding">
+        <ion-row style="border-bottom: 1px solid #999999;">
+          <ion-col class="ion-text-center" size="10" ><p>Forward To</p>
+          </ion-col>
+          <ion-col (click)="modalClose()" size="2">
+            <ion-icon  name="close" class="addRemoveIconBillMinus ion-text-end"></ion-icon>
+          </ion-col>
+
+        </ion-row>
+
+        <!--    <form #validSubmit="ngForm" (ngSubmit)="saveAssignAS()">
+
+              <ion-list *ngFor="let data of getAsListData;let i=index" [(ngModel)]="asName" name="asName" required  radio-group>
+
+                <ion-item>
+                  <ion-label>{{data.OfficerNameEn}}</ion-label>
+                  <ion-radio   value="{{data.UserId}}"></ion-radio>
+                </ion-item>
+              </ion-list>
+              <ion-row>
+                <ion-col class="ion-text-center" size="12" class="header_btn" >
+                  <button ion-button color="primary" round  type="submit" [disabled]="!validSubmit.valid">Submit</button>
+                </ion-col>
+              </ion-row>
+            </form>-->
+
+
+          <ion-list *ngFor="let data of getAsListData;let i=index" >
+            <ion-radio-group [(ngModel)]="asName" >
+          <ion-item class="ion-text-wrap">
+            <ion-label style="font-size: 0.8em">{{data.OfficerNameEn}}</ion-label>
+            <ion-radio item-left value="{{data.UserId}}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+          </ion-list>
+
+        <ion-row>
+          <ion-col class="ion-text-center header_btn" size="12" >
+            <ion-buttons class="assign_btn">
+            <ion-button shape="round" (click)="saveAssignAS()">Submit</ion-button>
+              </ion-buttons>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+    <div  *ngIf="this.httpClient.currentLanguage=='hindi'">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col class="ion-text-center" size="10" style="border-bottom: 1px solid #999999;"><p>Forward To</p> </ion-col>
+          <ion-col (click)="modalClose()" size="2">
+            <ion-icon name="close" class=" addRemoveIconBillMinus ion-text-end "></ion-icon>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-list *ngFor="let data of getAsListData;let i=index" >
+          <ion-radio-group [(ngModel)]="asName" >
+
+            <ion-item class="ion-text-wrap">
+            <ion-label style="font-size: 0.8em">{{data.OfficerNameHi}}</ion-label>
+
+            <ion-radio  item-left value="{{data.UserId}}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        </ion-list>
+
+        <ion-row>
+          <ion-col class="ion-text-center header_btn" size="12" >
+            <ion-buttons class="assign_btn">
+             <ion-button shape="round" (click)="saveAssignAS()">जमा करें</ion-button>
+            </ion-buttons>
+
+          </ion-col>
+          <!--      <ion-col class="ion-text-center" size="12" class="header_btn">-->
+
+          <!--          <button ion-button color="danger" round (click)="close()">रद्द करें</button>-->
+
+          <!--      </ion-col>-->
+        </ion-row>
+
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

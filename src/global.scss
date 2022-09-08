@@ -1,0 +1,152 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+ion-toolbar{
+    font-family: Gilroy-Medium!important;
+}
+ion-content{
+
+    font-family: Gilroy-Medium!important;
+}ion-item{
+
+     font-family: Gilroy-Medium!important;
+ }ion-row{
+
+      font-family: Gilroy-Medium!important;
+  }ion-input{
+
+       font-family: Gilroy-Medium!important;
+   }
+span{
+
+    font-family: Gilroy-Medium!important;
+}
+p{
+
+    font-family: Gilroy-Medium!important;
+}
+
+
+@font-face {
+    font-family: 'Gilroy-Bold';    //This is what we are going to call
+    src: url('assets/fonts/Gilroy-Bold.ttf');
+}
+@font-face {
+    font-family: 'Gilroy-Heavy';    //This is what we are going to call
+    src: url('assets/fonts/Gilroy-Heavy.ttf');
+}
+@font-face {
+    font-family: 'Gilroy-Light';    //This is what we are going to call
+    src: url('assets/fonts/Gilroy-Light.ttf');
+}
+@font-face {
+    font-family: 'Gilroy-Medium';    //This is what we are going to call
+    src: url('assets/fonts/Gilroy-Medium.ttf');
+}
+@font-face {
+    font-family: 'Gilroy-Regular';    //This is what we are going to call
+    src: url('assets/fonts/Gilroy-Regular.ttf');
+}
+
+.modal-wrapper.sc-ion-modal-md {
+    transform: translate3d(0,40px,0);
+    opacity: .01;
+    min-height: 350px;
+    max-height: 550px;
+    width: 300px;
+}
+.sc-ion-alert-md-h {
+    --min-width: 90%;
+    // --min-height: 90%;
+    overflow: auto !important;
+}
+.alert-radio-group.sc-ion-alert-md, .alert-checkbox-group.sc-ion-alert-md {
+    position: relative;
+    max-height: 90%;
+    border-top: 1px solid var(--ion-color-step-150, #d9d9d9);
+    border-bottom: 1px solid var(--ion-color-step-150, #d9d9d9);
+    overflow: auto;
+}
+.sc-ion-alert-md-h::-webkit-scrollbar {
+    width: 1em;
+    display: block !important;
+}
+
+.sc-ion-alert-md-h::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.sc-ion-alert-md-h::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+.my-UploadImages{
+    
+}
+
+.login_btnDoc {
+    border-radius: 50px;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin: 0 auto;
+    display: block;
+    background: rgba(0, 171, 80, 1);
+    background: -moz-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 171, 80, 1)), color-stop(100%, rgba(100, 195, 16, 1)));
+    background: -webkit-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -o-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: linear-gradient(to right, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ab50', endColorstr='#64c310', GradientType=1);
+    box-shadow: none;
+    color: #ffffff;
+    border: 1px solid #53bf1c;
+}
+.rememberText {
+    padding: 0 10px;
+    font-size:0.9em;
+
+}
+.ion-checkbox .ion-checkbox-checked {
+    background-color: #99c847;
+
+}
+
+.ion-checkbox .ion-checkbox-icon {
+    border-color: #00AB50;
+}
+
+.my-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-top: 10px;
+    border-color: #00AB50;
+
+}

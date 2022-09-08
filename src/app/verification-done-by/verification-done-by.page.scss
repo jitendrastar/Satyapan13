@@ -1,0 +1,98 @@
+.assign_btn {
+  border-radius: 16px;
+  width: 133px;
+  height: 30px;
+  font-size: 13px;
+  text-transform: none;
+  margin: 0 auto;
+  display: block;
+  background: rgba(0, 171, 80, 1);
+  background: -moz-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 171, 80, 1)), color-stop(100%, rgba(100, 195, 16, 1)));
+  background: -webkit-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -o-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: linear-gradient(to right, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ab50', endColorstr='#64c310', GradientType=1);
+  box-shadow: none;
+  border: 1px solid #53bf1c;
+}
+.toolbar-background-md {
+  background: #ffffff;
+}
+
+.toolbar-title-md {
+  color: #00AB50;
+}
+
+.toolbar-title-ios {
+  color: #00AB50;
+}
+
+b, strong {
+  font-weight: 600;
+}
+
+ion-buttons {
+  font-size: 1rem;
+}
+
+ion-select {
+  width: 100%;
+  max-width: 100% !important;
+  padding-left: 0px;
+}
+
+.select-md {
+  padding: 1px 47px 21px 2px;
+}
+
+.bar-button-md {
+  height: 42px;
+}
+
+.button-md {
+  background-color: white;
+}
+
+.button-ios {
+  background-color: white;
+}
+
+.button-small-md {
+  height: 1.9em;
+  font-size: 1.1rem;
+  padding: 0 0.9em;
+}
+
+.button-small-ios {
+  height: 1.9em;
+  font-size: 1.1rem;
+  padding: 0 0.9em;
+}
+
+.subsidyRowCls {
+  border-bottom: 1px solid #f4f4f4;
+  padding-top: 12px;
+  padding-right: 17px;
+}
+span.lang_change {
+  color: #59AD1C;
+  font-weight: 400;
+}
+span.lang_change_color {
+  color: #647B8C;
+  font-weight: 400;
+}
+
+ion-label.sc-ion-label-md-h.sc-ion-label-md-s.md.hydrated {
+  color: black;
+  font-size: 0.8em;
+}ion-label.sc-ion-label-ios-h.sc-ion-label-ios-s.ios.hydrated {
+  color: black;
+  font-size: 0.8em;
+}
+ion-segment-button.md.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
+  --color-checked: #00AB50;
+}
+

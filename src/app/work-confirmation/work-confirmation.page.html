@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+      <p style="font-size: 1em">{{farmerName}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+        style="color: black;font-size: 0.8em;">{{village}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+        style="color: black;font-size: 0.8em;">{{block}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+        style="color: black;font-size: 0.8em;">{{district}}</span>
+    </div>
+    <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight">
+      <p style="font-size: 1em">{{farmerNameH}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+        style="color: black;font-size: 0.8em;">{{villageH}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+        style="color: black;font-size: 0.8em;">{{blockH}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+        style="color: black;font-size: 0.8em;">{{districtH}}</span>
+    </div>
+    <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+      <span style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{creationDate}}</span><br>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+          class="lang_change_color">/अ</span></span>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+          class="lang_change_color">/A</span></span>
+    </div>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content class="ion-padding">
+
+  <div *ngIf="httpClient.currentLanguage=='english'">
+    <ion-list>
+      <ion-row class="ion-padding-top" style="background-color:#eaeaea;padding-bottom: 0">
+        <ion-col size="4" class="ion-text-center">
+          <img alt="userimg" src="{{farmerPhoto}}" width="70px" height="70px" style="border-radius: 180px" />
+
+        </ion-col>
+        <ion-col size="8">
+          <ion-row>
+            <ion-col class="ion-no-padding" size="12"><span
+                style="font-size: 1.0em;font-weight: 700">{{farmerName}}</span></ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">Father Name : <span style="color: black">{{fatherName}}</span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">Reg. No. : <span style="color: black">{{applicationNo}}</span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12">
+              <ion-buttons *ngIf="mobileNo">
+                <ion-button class="mobileBtn">
+                  <span>+91 &nbsp;{{mobileNo}}</span>
+                </ion-button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="colRow">
+        <ion-col class="ion-padding" size="12">
+          <span>Khasra Number : </span>
+          <span><b>{{khasraNo}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>Total Land : </span>
+          <span><b>{{totalLandArea}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>Farmer Category : </span>
+          <span><b>{{farmCategory}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>Sprinkler / Drip Irrigation : </span>
+          <span><b>{{isSprinkler}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>{{schemeName}} Category Selection: </span>
+          <span><b>{{farmPondCategory}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>Administrative Sanction No.: </span>
+          <span><b>{{this.objConfirm.SanctionNo}}</b> </span>
+        </ion-col>
+        <!--  <ion-col class="ion-padding" size="12">
+           <span >Kachha/Pakka Bill Amount: </span>
+           <span ><b>{{farmPondCategory}}</b> </span>
+         </ion-col>
+         <ion-col class="ion-padding" size="12">
+           <span >Dimention of Farm Pond: </span>
+           <span ><b>{{farmPondCategory}}</b> </span>
+         </ion-col>-->
+      </ion-row>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col size="12" *ngIf="objConfirm.SubsidySchemeId!='7'">
+        <ion-buttons>
+          <ion-button class="assign_btn" type="button"
+            (click)="confirmationPrompt('Are you sure construction is completed ?')">Construction Completed</ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="12" *ngIf="objConfirm.SubsidySchemeId=='7'">
+        <ion-buttons>
+          <ion-button class="assign_btn" type="button"
+            (click)="confirmationPrompt('Are you sure Farm implement purchased ?')">Implement Purchased</ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+  </div>
+  <div *ngIf="httpClient.currentLanguage=='hindi'">
+    <ion-list>
+      <ion-row class="ion-padding-top" style="background-color:#eaeaea;padding-bottom: 0">
+        <ion-col size="4" class="ion-text-center">
+          <img alt="userimg" src="{{farmerPhoto}}" width="70px" height="70px" style="border-radius: 180px" />
+
+        </ion-col>
+        <ion-col size="8">
+          <ion-row>
+            <ion-col class="ion-no-padding" size="12"><span
+                style="font-size: 1.0em;font-weight: 700">{{farmerName}}</span></ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">पिता का नाम : <span style="color: black">{{fatherName}}</span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                class="ion-text-wrap">पंजीकरण संख्या : <span style="color: black">{{applicationNo}}</span></span>
+            </ion-col>
+            <ion-col class="ion-no-padding" size="12">
+              <ion-buttons *ngIf="mobileNo">
+                <ion-button class="mobileBtn">
+                  <span>+91 &nbsp;{{mobileNo}}</span>
+                </ion-button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="colRow">
+        <ion-col class="ion-padding" size="12">
+          <span>खसरा नंबर : </span>
+          <span><b>{{khasraNo}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>कुल भूमि ( हेक्टेयर ) : </span>
+          <span><b>{{totalLandArea}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>किसान श्रेणी : </span>
+          <span><b>{{farmCategory}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>फव्वारा / ड्रिप सिंचाई : </span>
+          <span><b>{{isSprinkler}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>{{schemeNameH}} श्रेणी चयन : </span>
+          <span><b>{{farmPondCategory}}</b> </span>
+        </ion-col>
+        <ion-col class="ion-padding" size="12">
+          <span>प्रशासनिक स्वीकृति क्रमांक: </span>
+          <span><b>{{this.objConfirm.SanctionNo}}</b> </span>
+        </ion-col>
+        <!--  <ion-col class="ion-padding" size="12">
+           <span >Kachha/Pakka Bill Amount: </span>
+           <span ><b>{{farmPondCategory}}</b> </span>
+         </ion-col>
+         <ion-col class="ion-padding" size="12">
+           <span >Dimention of Farm Pond: </span>
+           <span ><b>{{farmPondCategory}}</b> </span>
+         </ion-col>-->
+      </ion-row>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col size="12" *ngIf="objConfirm.SubsidySchemeId!='7'">
+        <ion-buttons>
+          <ion-button class="assign_btn" type="button"
+            (click)="confirmationPrompt('क्या आप सुनिश्चित हैं कि निर्माण पूरा हो गया है?')">निर्माण पूरा </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="12" *ngIf="objConfirm.SubsidySchemeId=='7'">
+        <ion-buttons>
+          <ion-button class="assign_btn" type="button"
+            (click)="confirmationPrompt('क्या आप सुनिश्चित हैं कि कृषि यंत्र खरीद लिया है ?')">कृषि यंत्र खरीद लिया है
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+  </div>
+</ion-content>

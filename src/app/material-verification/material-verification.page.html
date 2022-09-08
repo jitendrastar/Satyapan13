@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+      <p style="font-size: 1em;margin-bottom: 1px;">{{getPreVerificationData.FarmerName}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.VILLAGE_ENG}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_ENG}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_ENG}}</span>
+    </div>
+    <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight">
+      <p style="font-size: 1em;margin-bottom: 1px;">{{getPreVerificationData.FarmerName}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.VILLAGE_MANGAL}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_MANGAL}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_MANGAL}}</span>
+    </div>
+    <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+      <span
+        style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{getPreVerificationData.CreationDate}}</span><br>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+          class="lang_change_color">/अ</span></span>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+          class="lang_change_color">/A</span></span>
+    </div>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row style="border:1px solid #e8e8e8;border-radius: 10px;" class="ion-margin-top">
+    <ion-item lines='none' style="width: 98%;margin: 0 auto;">
+      <ion-label>
+        <span *ngIf="httpClient.currentLanguage=='english'" style="font-size: 15px;">Checklist for
+          verification</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 15px;">सत्यापन के लिए
+          चेकलिस्ट</span>
+      </ion-label>
+
+    </ion-item>
+    <div *ngFor="let item of preVerificationChecklistData;let i=index;" style="width: 95%;margin: 0 auto;">
+      <ion-card style="margin-top: 10px;">
+        <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+          <ion-col size="8">
+            <span *ngIf="httpClient.currentLanguage=='english'"
+              style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"
+              style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            <ion-icon *ngIf="item.isSelectedClose" name="close" (click)="checkedClose(i,item.isSelectedClose)"
+              style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+            </ion-icon>
+            <ion-icon *ngIf="!item.isSelectedClose" name="close" (click)="checkedClose(i,item.isSelectedClose)"
+              style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+              (click)="checkedCheck(i,item.isSelectedCheck)"
+              style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+            <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+              (click)="checkedCheck(i,item.isSelectedCheck)"
+              style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+  </ion-row>
+  <div class="ion-padding">
+    <ion-button expand="block" (click)="submit()">
+      <span *ngIf="httpClient.currentLanguage=='english'" style="font-size: 15px;">SUBMIT</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 15px;">जमा करें </span>
+    </ion-button>
+  </div>
+</ion-content>

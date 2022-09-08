@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span *ngIf="httpClient.currentLanguage=='english'">Add Bill</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'"> बिल जोड़ें</span>
+    </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span *ngIf="httpClient.currentLanguage=='english'">A/अ</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> अ/A</span>
+      </ion-button>
+      <ion-button (click)="closeModel()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Close</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> बंद करे</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col size="6">
+      <ion-button (click)="takePhoto()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Take Photo</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">फोटो ले</span>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <img [src]="displayImage" width="100px" height="100px" *ngIf="displayImage" />
+    </ion-col>
+  </ion-row>
+  <ion-item class="ion-margin-top">
+    <ion-label position="fixed">
+      <span *ngIf="httpClient.currentLanguage=='english'">Bill No.</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">बिल क्रमांक </span>
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="billDetails.BillNo"></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin-top">
+    <ion-label position="fixed">
+      <span *ngIf="httpClient.currentLanguage=='english'">Bill Date</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">बिल दिनांक</span>
+    </ion-label>
+    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="billDetails.BillDate"></ion-datetime>
+  </ion-item>
+  <ion-item class="ion-margin-top">
+    <ion-label position="fixed">
+      <span *ngIf="httpClient.currentLanguage=='english'">Bill Amount</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">बिल राशि</span>
+    </ion-label>
+    <ion-input type="number" [(ngModel)]="billDetails.BillAmount"></ion-input>
+  </ion-item>
+  <ion-button class="ion-margin-top" expand="block" (click)="submit()">
+    <span *ngIf="httpClient.currentLanguage=='english'"> Submit </span>
+    <span *ngIf="httpClient.currentLanguage=='hindi'">जमा करे </span>
+  </ion-button>
+</ion-content>

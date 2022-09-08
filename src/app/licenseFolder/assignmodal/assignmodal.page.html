@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <span *ngIf="httpClient.currentLanguage=='english'">Assign to</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'"> आवंटन </span>
+    </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span *ngIf="httpClient.currentLanguage=='english'">A/अ</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> अ/A</span>
+      </ion-button>
+      <ion-button (click)="modalClose()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Close</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> बंद करे</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item style="width: 98%;margin: 0 auto;" *ngIf="aaoList.length>0">
+    <ion-label position="floating">
+      <span *ngIf="httpClient.currentLanguage=='english'">Select AAO</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">AAO  का चयन करें </span>
+    </ion-label>
+    <ion-select [(ngModel)]="selectedAao" (ionChange)="getASList()">
+      <ion-select-option *ngFor="let item of aaoList" value="{{item.Agri_UserId}}">
+        <span *ngIf="httpClient.currentLanguage=='english'">{{item.OfficeNameEn}}</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.OfficeNameHi}} </span>
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item style="width: 98%;margin: 0 auto;margin-top: 16px;" *ngIf="asList.length>0">
+    <ion-label position="floating">
+      <span *ngIf="httpClient.currentLanguage=='english'">Select AS</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">AS  का चयन करें </span>
+    </ion-label>
+    <ion-select [(ngModel)]="selectedAs"  (ionChange)="setValueAs()">
+      <ion-select-option *ngFor="let item of asList" value="{{item.Agri_UserId}}">
+        <span *ngIf="httpClient.currentLanguage=='english'">{{item.OfficeNameEn}}</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">{{item.OfficeNameHi}} </span>
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div style="padding: 16px;">
+    <ion-button expand="block" (click)="submit()">
+      <span *ngIf="httpClient.currentLanguage=='english'">submit</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'"> जमा करें  </span>
+    </ion-button>
+  </div>
+</ion-content>

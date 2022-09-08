@@ -1,0 +1,153 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">License Dashboard</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">लाइसेंस डैशबोर्ड</ion-title>
+    <ion-buttons slot="end">
+      <ion-button slot="end" (click)="changeRole()" *ngIf="httpClient.userList.length>0">
+        <span *ngIf="httpClient.currentLanguage=='english'">Change Role</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">रोल बदले </span>
+      </ion-button>
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bgColorClass">
+
+
+  <div *ngIf="httpClient.loadingFlag" class="ion-padding" style="line-height: 1.5">
+    <ion-row class="ion-margin-top">
+      <ion-col class="ion-no-padding ion-text-capitalize" size="12">
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%;height: 50%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-card class="ion-margin-top" style="border-radius: 15px;margin-top: 20px;">
+      <ion-row>
+        <ion-col class="ion-text-center" size="12">
+          <ion-skeleton-text animated style="width: 40%;margin-left: 30%"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+
+        <ion-col *ngIf="pendingRow==false" size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card class="ion-margin-top " style="border-radius: 15px">
+      <ion-row>
+        <ion-col class="ion-text-center" size="12">
+          <ion-skeleton-text animated style="width: 40%;margin-left: 30%"></ion-skeleton-text>
+        </ion-col>
+
+        <ion-col size="6" class="colBorderGreen ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6" class="colBorderGreen ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="12" class="ion-text-center colColor ion-padding">
+          <ion-skeleton-text animated style="width: 50%;margin-left: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==false" size="12" class="ion-text-center colColor ion-padding">
+          <ion-skeleton-text animated style="width: 50%;margin-left: 30%"></ion-skeleton-text>
+
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <!--Normal View-->
+
+  <div *ngIf="!httpClient.loadingFlag">
+
+
+    <div class="ion-padding imgClass">
+
+      <ion-row>
+        <ion-col class="ion-no-padding ion-text-capitalize" size="12">
+          <h6>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">नमस्कार ,</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">Hello ,</span>
+          </h6>
+          <h4>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">{{httpClient.userData.OfficerNameHi}} ,</span>
+            <span *ngIf="httpClient.currentLanguage=='english'">{{httpClient.userData.OfficerNameEn}} ,</span>
+          </h4>
+        </ion-col>
+
+      </ion-row>
+      <ion-card class="cardClass">
+        <ion-row *ngIf="dashboardCount">
+          <ion-col class="colBorderPrePost ion-text-center" size="12">
+            <span class="preClass"><b>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"> लाइसेंस का भौतिक सत्यापन</span>
+                <span *ngIf="httpClient.currentLanguage=='english'">Physical Verification of licence</span>
+
+              </b></span>
+          </ion-col>
+
+
+          <ion-col  [ngClass]="dashboardCount.SelfTotalPending=='0' ? 'backgroundOne' : 'backgroundTwo'" (click)="applicantList('P')" size="6" class="colBorder ion-padding ion-text-left">
+            <span class="pcClass">
+              <span *ngIf="httpClient.currentLanguage=='hindi'"> लंबित</span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+              &nbsp; <span class="yellowText">{{dashboardCount.SelfTotalPending}}</span></span>
+          </ion-col>
+          <ion-col  [ngClass]="dashboardCount.SelfTotalCompleted=='0' ? 'backgroundOne' : 'backgroundTwo'" (click)="applicantList('C')" size="6" class="colBorder ion-padding ion-text-left">
+            <span class="pcClass">
+              <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Completed</span>
+              &nbsp; <span class="greenText">{{dashboardCount.SelfTotalCompleted}}</span></span>
+          </ion-col>
+          <ion-col  [ngClass]="dashboardCount.Assigned=='0' ? 'backgroundOne' : 'backgroundTwo'" *ngIf="httpClient.userData.roleid=='15'" (click)="applicantList('assigned')" size="6"
+            class="colBorder ion-padding ion-text-left">
+            <span class="pcClass">
+              <span *ngIf="httpClient.currentLanguage=='hindi'">असाइन किया गया</span>
+              <span *ngIf="httpClient.currentLanguage=='english'">Assigned</span>
+              &nbsp; <span class="greenText">{{dashboardCount.Assigned}}</span></span>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    </div>
+  </div>
+  <!-- <div class="ion-padding">
+      <ion-button expand="block" (click)="syncPage()">SYNC Data Online </ion-button>
+  </div> -->
+
+</ion-content>

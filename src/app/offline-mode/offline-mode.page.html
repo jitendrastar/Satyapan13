@@ -1,0 +1,51 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Offline Verification</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">ऑफ़लाइन सत्यापन</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col size="12" class="ion-text-center ion-padding">
+      <img src="assets/imgs/logo-PV-final.png" alt="loginImg" width="60%" />
+    </ion-col>
+    <ion-col size="12" class="ion-text-center ion-padding">
+      <ion-icon class="wifiIconClass" name="wifi-outline"></ion-icon>
+    </ion-col>
+
+    <ion-col size="12" class="ion-text-center">
+      <span *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center" style="color: #0BAF58;">
+        You are not connected to internet please proceed offline by clicking bellow Subsidies
+      </span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center" style="color: #0BAF58;">
+        आप इंटरनेट से कनेक्ट नहीं हैं कृपया नीचे सब्सिडी पर क्लिक करके ऑफ़लाइन आगे बढ़ें
+      </span>
+
+    </ion-col>
+  </ion-row>
+
+  <ion-card style="background: #36B17B;" *ngFor="let item of dashboardList" (click)="actionSheetOfVerificationType(item.SubsidySchemeId)">
+   <div class="card-title">
+      <span *ngIf="httpClient.currentLanguage=='english'">
+        {{item.SubsidySchemeEn}}
+      </span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">
+        {{item.SubsidySchemeHi}}
+      </span>
+    </div>
+  </ion-card>
+
+
+
+</ion-content>

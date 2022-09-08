@@ -1,0 +1,25 @@
+.textSmall {
+  padding: 3px 8px;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-bottom: 1px solid #dedede;
+  font-family: sans-serif;
+  line-height: 1.4em;
+}
+
+.arrow {
+  font-size: 1.5em;
+  color: #00AB50;
+  font-weight: 700;
+}
+ion-title{
+  font-size: 1em;
+  font-weight: 500;
+}
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}

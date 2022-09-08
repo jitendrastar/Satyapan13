@@ -1,0 +1,310 @@
+<ion-header class="header">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="httpClient.currentLanguage=='english'">PV Done List</ion-title>
+        <ion-title *ngIf="httpClient.currentLanguage=='hindi'">पूर्व सत्यापन ( पूर्ण सूची )</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="httpClient.changeLanguage()">
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                        class="lang_change_color">/अ</span></span>
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span class="lang_change_color">/A</span></span>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding-top">
+    <!--Skeleton View-->
+
+    <div *ngIf="httpClient.loadingFlag">
+        <ion-row style="border-bottom: 1px solid #f4f4f4">
+            <ion-col size="3" class="ion-text-center">
+                <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+                <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="6" style="line-height: 17px">
+                <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+            </ion-col>
+            <ion-col size="3">
+                <ion-row>
+                    <ion-col size="12" class="ion-text-center ion-no-padding">
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                    </ion-col>
+                    <ion-col size="12" class="ion-text-center ion-no-padding">
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                    </ion-col>
+                    <ion-col size="12" class="ion-text-center ion-margin-top">
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>    <ion-row style="border-bottom: 1px solid #f4f4f4">
+        <ion-col size="3" class="ion-text-center">
+            <!--        <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px"/>-->
+            <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 180px;margin-left: 10px"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="6" style="line-height: 17px">
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col size="3">
+            <ion-row>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-no-padding">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+
+                </ion-col>
+                <ion-col size="12" class="ion-text-center ion-margin-top">
+                    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                </ion-col>
+            </ion-row>
+        </ion-col>
+    </ion-row>
+    </div>
+
+    <!-- Normal View-->
+
+    <div *ngIf="!httpClient.loadingFlag">
+        <div *ngIf="httpClient.currentLanguage=='english'">
+            <ion-row style="border-bottom: 1px solid #f4f4f4"
+                     *ngFor="let data of getPVDetailsforMobileData;let i=index;"
+                     (click)="gotoPVDetails(data.ApplicationId,data.SubsidySchemeId)">
+                <ion-col size="3" class="ion-text-center">
+                    <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px"
+                         style="border-radius: 180px"/>
+                </ion-col>
+                <ion-col size="6" style="line-height: 17px">
+                    <span style="font-size: 0.9em" class="ion-text-wrap"><b>{{data.FarmerName==''?data.FarmerNameHnd:data.FarmerName}}</b></span><br>
+                    <span style="font-size: 0.9em" class="ion-text-wrap">{{data.SchemeNameEng}}</span><br>
+                    <span style="font-size: 0.8em" class="ion-text-wrap"><span
+                            style="color: #969696">Village:</span> {{data.VILLAGE_ENG}} , <span
+                            style="color: #969696"> Block:</span> {{data.BLOCK_ENG}}</span><br>
+                    <span style="font-size: 0.8em" class="ion-text-wrap"><span
+                            style="color: #969696"> District:</span> {{data.DISTRICT_ENG}}</span>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-row>
+                        <ion-col size="12" class="ion-text-center ion-no-padding">
+                            <span style="color:darkgray;font-size: 0.8em">{{data.ApplicationNo}}</span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-text-center ion-no-padding">
+                            <span style="font-size: 0.8em">{{data.ApplicationDate}}</span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-text-center">
+                            <ion-icon style="font-size: 1.5em;color: #00AB50;font-weight: 700"
+                                      name="chevron-forward-outline"></ion-icon>
+
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+
+        </div>
+        <div *ngIf="httpClient.currentLanguage=='hindi'">
+            <ion-row style="border-bottom: 1px solid #f4f4f4"
+                     *ngFor="let data of getPVDetailsforMobileData;let i=index;"
+                     (click)="gotoPVDetails(data.ApplicationId,data.SubsidySchemeId)">
+                <ion-col size="3" class="ion-text-center">
+                    <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px"
+                         style="border-radius: 180px"/>
+                </ion-col>
+                <ion-col size="6" style="line-height: 17px">
+                    <span style="font-size: 0.9em" class="ion-text-wrap"><b>{{data.FarmerNameHnd==''?data.FarmerName:data.FarmerNameHnd}}</b></span><br>
+                    <span style="font-size: 0.9em" class="ion-text-wrap">{{data.SchemeNameHindi}}</span><br>
+                    <span style="font-size: 0.8em" class="ion-text-wrap"><span
+                            style="color: #969696">गाँव:</span> {{data.VILLAGE_MANGAL}} , <span
+                            style="color: #969696"> तहसील:</span> {{data.BLOCK_MANGAL}}</span><br>
+                    <span style="font-size: 0.8em" class="ion-text-wrap"><span
+                            style="color: #969696"> जिला:</span> {{data.DISTRICT_MANGAL}}</span>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-row>
+                        <ion-col size="12" class="ion-text-center ion-no-padding">
+                            <span style="color:darkgray;font-size: 0.8em">{{data.ApplicationNo}}</span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-text-center ion-no-padding">
+                            <span style="font-size: 0.8em">{{data.ApplicationDate}}</span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-text-center">
+                            <ion-icon style="font-size: 1.5em;color: #00AB50;font-weight: 700"
+                                      name="chevron-forward-outline"></ion-icon>
+
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+
+        </div>
+    </div>
+</ion-content>

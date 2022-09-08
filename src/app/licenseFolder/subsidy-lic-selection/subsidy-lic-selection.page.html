@@ -1,0 +1,46 @@
+<ion-header class="header">
+  <ion-toolbar>
+
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Select Option</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">Select Option</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-row>
+    <ion-col (click)="gotoSubsidy()" size="6">
+      <ion-card class="header" style="text-align: center;">
+        <img src="assets/imgs/subsidy.svg" style="width: 80%;margin-top: 16px;">
+        <div style="margin-top: 16px;margin-bottom: 16px;" *ngIf="httpClient.currentLanguage=='english'">Subsidy</div>
+        <div style="margin-top: 16px;margin-bottom: 16px;" *ngIf="httpClient.currentLanguage=='hindi'">सब्सिडी</div>
+
+      </ion-card>
+    </ion-col>
+    <ion-col (click)="gotoLicense()" size="6">
+      <ion-card class="header" style="text-align: center;">
+
+        <img src="assets/imgs/licence.svg" style="width: 80%;margin-top: 16px;">
+        <div style="margin-top: 13px;margin-bottom: 13px;" *ngIf="httpClient.currentLanguage=='english'">License</div>
+        <div style="margin-top: 13px;margin-bottom: 13px;" *ngIf="httpClient.currentLanguage=='hindi'">लाइसेंस</div>
+      </ion-card>
+    </ion-col>
+    <ion-col (click)="gotoKsk()" size="6">
+      <ion-card class="header" style="text-align: center;">
+
+        <img src="assets/imgs/ksk.png" style="width: 80%;margin-top: 16px;">
+        <div style="margin-top: 13px;margin-bottom: 13px;" *ngIf="httpClient.currentLanguage=='english'">Update KSK</div>
+        <div style="margin-top: 13px;margin-bottom: 13px;" *ngIf="httpClient.currentLanguage=='hindi'">अपडेट केएसके</div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

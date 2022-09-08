@@ -1,0 +1,60 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Licence List Page</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">Licence List Page</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='english'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='hindi'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-margin-top">
+      <ion-col class="ion-margin-top" size="6" *ngFor="let data of licListData" style="text-align: center;"
+        (click)="gotoLicDetails(data.LicenseMasterId)">
+        <ion-row>
+          <ion-col size="12">
+            <img *ngIf="data.ImageUrl" style="width: 70%;" src="{{data.ImageUrl}}" alt="img" />
+            <img *ngIf="!data.ImageUrl" src="assets/imgs/demoimg.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" style="font-weight: 600">{{data.LicenceNameEn}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-weight: 600">{{data.LicenceNameHi}}</span>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+
+  <!--
+  <ion-row>
+    <ion-col *ngFor="let data of licListData;let i=index" (click)="gotoLicDetails(data.LicenseMasterId)" size="6">
+      <ion-card  class="header">
+        <div *ngIf="httpClient.currentLanguage=='english'">{{data.LicenceNameEn}}</div>
+        <div *ngIf="httpClient.currentLanguage=='hindi'">{{data.LicenceNameHi}}</div>
+       </ion-card>
+    </ion-col>
+
+  </ion-row>
+-->
+</ion-content>

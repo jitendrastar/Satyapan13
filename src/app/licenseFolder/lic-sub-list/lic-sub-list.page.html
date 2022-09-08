@@ -1,0 +1,202 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Licence Sub List</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">Licence Sub List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+      <ion-button *ngIf="httpClient.userList.length>0" (click)="changeRole()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Change Role</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">रोल बदले </span>
+      </ion-button>
+      <ion-button slot="end" (click)="logoutPopUp()">
+        <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="home()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #f5f5f5">
+  <!--  <ion-card *ngFor="let data of licListData" class="ion-padding-vertical">-->
+  <!--    <ion-row (click)="gotoCountDashboard(data)">-->
+  <!--      <ion-col size="3" class="ion-text-center">-->
+  <!--        <img *ngIf="data.ImageUrl" width="50%" class="imgClassSubsidy" src="{{data.ImageUrl}}" alt="img" />-->
+  <!--      </ion-col>-->
+  <!--      <ion-col size="9" style="padding-top: 6%;">-->
+  <!--        <span *ngIf="httpClient.currentLanguage=='english'" style="font-weight: 600">{{data.NameEn}}</span>-->
+  <!--        <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-weight: 600">{{data.NameHi}}</span>-->
+  <!--      </ion-col>-->
+  <!--    </ion-row>-->
+  <!--  </ion-card>-->
+  <!-- <div style="height:10%;margin: 0;background: #dedede"></div> -->
+  <ion-grid style="padding: 15px">
+    <ion-row>
+      <ion-col size="12" class="ion-text-center " style="color: #9a9a9a;text-transform: uppercase;padding: 10px">
+        <span *ngIf="httpClient.currentLanguage=='english'"> Type of Licence</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> लाइसेंस का प्रकार</span>
+      </ion-col>
+    </ion-row>
+    <ion-row style="background: #ffffff;border-radius: 15px">
+      <ion-col size="4" class="col4Cls1" *ngFor="let data of licListData" (click)="gotoCountDashboard(data)">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src="{{data.ImageUrl}}" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">{{data.NameEn}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">{{data.NameHi}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls1" *ngIf="licListData.length>0">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <a href="tel:01412927047">
+              <ion-icon name="call-outline" style="color: #0CAC61;
+            font-size: 40px;
+            margin-top: 10px;"></ion-icon>
+            </a>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <a href="tel:01412927047" style="text-decoration: none"> <span *ngIf="httpClient.currentLanguage=='english'"
+                class="textCls" style="color: black;">Help</span></a>
+            <a href="tel:01412927047" style="text-decoration: none"> <span *ngIf="httpClient.currentLanguage=='hindi'"
+                class="textCls" style="color: black;">सहायता</span></a>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!-- <ion-col size="4" class="col4Cls1">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src="assets/imgs/insecticide%20control.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Insecticide Control</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Insecticide Control</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/insecticide%20manufacturer.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Insecticide Manufacturer</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Insecticide Manufacturer</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls3">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/insecticide%20Sale.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Insecticide Sale</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Insecticide Sale</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/Manufacturer%20Fertilizer.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Manufacturer Fertilizer</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Manufacturer Fertilizer</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/Retail%20Dealer%20fertilizer.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Retail Dealer Fertilizer</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Retail Dealer Fertilizer</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/Sale%20Permission.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Sale Permission</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Sale Permission</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls7">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/Seed.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Seed</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Seed</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/Wholesale%20Dealer%20Fertilizer.png" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Wholesale Dealer Fertilizer</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Wholesale Dealer Fertilizer</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4" class="col4Cls9">
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <img style="width: 50%" src=" assets/imgs/blank.jpg" alt="img" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="ion-text-center">
+            <span *ngIf="httpClient.currentLanguage=='english'" class="textCls">Need Help</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'" class="textCls">Need Help</span>
+          </ion-col>
+        </ion-row>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

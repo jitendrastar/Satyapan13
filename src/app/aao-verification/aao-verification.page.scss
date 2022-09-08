@@ -1,0 +1,141 @@
+.assign_btn {
+  border-radius: 16px;
+  width: 133px;
+  height: 30px;
+  font-size: 13px;
+  text-transform: none;
+  margin: 0 auto;
+  display: block;
+  background: rgba(0, 171, 80, 1);
+  background: -moz-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 171, 80, 1)), color-stop(100%, rgba(100, 195, 16, 1)));
+  background: -webkit-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -o-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  background: linear-gradient(to right, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ab50', endColorstr='#64c310', GradientType=1);
+  box-shadow: none;
+  border: 1px solid #53bf1c;
+  color: #ffffff;
+}
+.toolbar-background-md {
+  background: #ffffff;
+}
+
+.toolbar-title-md {
+  color: #00AB50;
+}
+
+.toolbar-title-ios {
+  color: #00AB50;
+}
+
+b, strong {
+  font-weight: 600;
+}
+
+ion-buttons {
+  font-size: 1rem;
+}
+
+ion-select {
+  width: 100%;
+  max-width: 100% !important;
+  padding-left: 0px;
+}
+
+.select-md {
+  padding: 1px 47px 21px 2px;
+}
+
+.bar-button-md {
+  height: 42px;
+}
+
+.button-md {
+  background-color: white;
+}
+
+.button-ios {
+  background-color: white;
+}
+
+.button-small-md {
+  //height: 1.9em;
+  font-size: 0.8em;
+  padding: 0 0;
+}
+
+.button-small-ios {
+  height: 1.9em;
+  font-size: 1.1rem;
+  padding: 0 0.9em;
+}
+
+.subsidyRowCls {
+  border-bottom: 1px solid #f4f4f4;
+  padding-top: 12px;
+  padding-right: 17px;
+}
+.checkCls{
+
+  margin-top: -10px  }
+
+
+.checkbox-md .checkbox-icon {
+  border-radius: 2px;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: green;
+  margin-top: -33px;
+  background-color: #fff;
+  -webkit-transition-duration: 280ms;
+  transition-duration: 280ms;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.checkbox-md-dark .checkbox-checked .checkbox-inner {
+  border-color: green;
+}
+
+
+.button-small-md {
+  height: 1.9em;
+  font-size: 1.1rem;
+  padding: 0 0.3em;
+  margin-left: 19px;
+  border: 1px solid #00AB50;
+  border-radius: 7px;
+  text-transform: capitalize;
+}
+span.lang_change {
+  color: #59AD1C;
+  font-weight: 400;
+}
+span.lang_change_color {
+  color: #647B8C;
+  font-weight: 400;
+}
+ion-button.button-small-md.md.button.button-clear.ion-activatable.ion-focusable.hydrated {
+  padding: 0 0;
+}
+.callBtn {
+  border: 1px solid #00AB50;
+  border-radius: 5px;
+  box-shadow: none;
+  height: 23px;
+  width: 63px;
+  text-transform: capitalize;
+  margin-left: -12px;
+}
+.checkBoxCls{
+  margin-top: 17px;
+  margin-left: 3px;
+
+}

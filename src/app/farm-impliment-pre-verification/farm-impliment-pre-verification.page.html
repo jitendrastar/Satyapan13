@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+      <p style="font-size: 1em">{{getPreVerificationData.FarmerName}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.Village_Eng}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_ENG}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_ENG}}</span>
+    </div>
+    <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight">
+      <p style="font-size: 1em">{{getPreVerificationData.FarmerNameHnd}}</p>
+      <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.Village_Mangal}} ,</span>
+      <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.BLOCK_MANGAL}}</span>
+      <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+        style="color: black;font-size: 0.8em;">{{getPreVerificationData.DISTRICT_MANGAL}}</span>
+    </div>
+    <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+      <span
+        style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{getPreVerificationData.CreationDate}}</span>
+      <br>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+          class="lang_change_color">/अ</span></span>
+      <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+          class="lang_change_color">/A</span></span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="ion-margin-top" lines="none">
+    <ion-radio-group [(ngModel)]="selectedGrant">
+      <ion-list-header>
+        <ion-label>
+          <p> <span *ngIf="httpClient.currentLanguage=='english'"> Has the farmer received a grant in the last 3 years
+              ({{getPreVerificationData.FarmImplementsMachineryEn}}) for the agricultural machine?</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">क्या कृषक पिछले 3 वर्षो में
+              ({{getPreVerificationData.FarmImplementsMachineryHi}}) कृषि
+              यन्त्र में अनुदान ले चुका है ? </span>
+          </p>
+        </ion-label>
+      </ion-list-header>
+      <ion-row style="    border-bottom: 1px solid #DEDEDE;">
+        <ion-col size="6">
+          <ion-item>
+            <ion-label> <span *ngIf="httpClient.currentLanguage=='english'">Yes</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">हाँ</span></ion-label>
+            <ion-radio value="Yes" slot="start"></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label> <span *ngIf="httpClient.currentLanguage=='english'">No</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">नहीं</span></ion-label>
+            <ion-radio value="No" slot="start"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-item *ngIf="selectedGrant=='Yes' && httpClient.currentLanguage=='english'">
+    <ion-label position="fixed">
+      <p>Year</p>
+    </ion-label>
+    <ion-input [(ngModel)]="selectedYear" type="number" placeholder="Enter year here..."></ion-input>
+  </ion-item>
+  <ion-item *ngIf="selectedGrant=='Yes' && httpClient.currentLanguage=='hindi'">
+    <ion-label position="fixed">
+      <p>
+        <span>वर्ष </span>
+      </p>
+    </ion-label>
+    <ion-input [(ngModel)]=" selectedYear" type="number" placeholder="वर्ष दर्ज करें..."></ion-input>
+  </ion-item>
+  <ion-row class="ion-margin-top ion-padding-top">
+    <ion-col size="12">
+      <ion-button expand="block" (click)="submitFinal()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Submit</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">जमा करें </span>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

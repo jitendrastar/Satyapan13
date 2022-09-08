@@ -1,0 +1,828 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <!-- <ion-row *ngIf="httpClient.currentLanguage=='english'" >
+           <ion-col size="10"  >
+             <p style="font-size: 1em">{{farmerName}}</p>
+             <span style="color: #969696;font-size: 0.8em;"> Village : </span><span style="color: black;font-size: 0.8em;">{{village}} ,</span>
+             <span style="color: #969696;font-size: 0.8em;"> Block : </span><span style="color: black;font-size: 0.8em;">{{block}}</span>
+             <span style="color: #969696;font-size: 0.8em;"> District : </span><span style="color: black;font-size: 0.8em;">{{district}}</span>
+           </ion-col>
+           &lt;!&ndash;      <ion-col size="3">&ndash;&gt;
+           &lt;!&ndash;        <span style="font-size: 0.7em;color: #00AB50;font-weight: 700">{{creationDate}}</span>&ndash;&gt;
+           &lt;!&ndash;      </ion-col>&ndash;&gt;
+         </ion-row>
+         <ion-row *ngIf="httpClient.currentLanguage=='hindi'" >
+
+           <ion-col size="10">
+             <p style="font-size: 1em">{{farmerNameH}}</p>
+             <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span style="color: black;font-size: 0.8em;">{{villageH}} ,</span>
+             <span style="color: #969696;font-size: 0.8em;"> ब्लॉक : </span><span style="color: black;font-size: 0.8em;">{{blockH}}</span>
+             <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span style="color: black;font-size: 0.8em;">{{districtH}}</span>
+
+           </ion-col>
+           &lt;!&ndash;      <ion-col size="3">&ndash;&gt;
+           &lt;!&ndash;        <span style="font-size: 0.7em;color: #00AB50;font-weight: 700">{{creationDate}}</span>&ndash;&gt;
+           &lt;!&ndash;      </ion-col>&ndash;&gt;
+           <ion-col size="2">
+
+           <ion-buttons class="ion-text-end">
+           <ion-button  (click)="httpClient.changeLanguage()">
+             <div style="display: inline-table;">
+ &lt;!&ndash;              <span style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{creationDate}}</span><br>&ndash;&gt;
+               <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span class="lang_change_color">/अ</span></span>
+               <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span class="lang_change_color">/A</span></span>
+             </div>
+           </ion-button>
+         </ion-buttons>
+           </ion-col>
+         </ion-row>
+ -->
+        <!--<ion-title class="ion-text-center" *ngIf="httpClient.currentLanguage=='english'">
+            <p style="font-size: 1em">{{farmerName}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+                style="color: black;font-size: 0.8em;">{{village}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> Block : </span><span
+                style="color: black;font-size: 0.8em;">{{block}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+                style="color: black;font-size: 0.8em;">{{district}}</span>
+
+        </ion-title>
+        <ion-title *ngIf="httpClient.currentLanguage=='hindi'">
+            <p style="font-size: 1em">{{farmerNameH}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+                style="color: black;font-size: 0.8em;">{{villageH}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> ब्लॉक : </span><span
+                style="color: black;font-size: 0.8em;">{{blockH}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+                style="color: black;font-size: 0.8em;">{{districtH}}</span>
+        </ion-title>
+        <ion-buttons class="ion-text-end">
+            <ion-button (click)="httpClient.changeLanguage()">
+                <div>
+                    &lt;!&ndash;<span style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{creationDate}}</span><br>&ndash;&gt;
+                    <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                            class="lang_change_color">/अ</span></span>
+                    <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                            class="lang_change_color">/A</span></span>
+                </div>
+            </ion-button>
+        </ion-buttons>
+-->
+        <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+            <p style="font-size: 1em">{{farmerName}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+                style="color: black;font-size: 0.8em;">{{village}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+                style="color: black;font-size: 0.8em;">{{block}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+                style="color: black;font-size: 0.8em;">{{district}}</span>
+        </div>
+        <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight" >
+            <p style="font-size: 1em">{{farmerNameH}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+                style="color: black;font-size: 0.8em;">{{villageH}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+                style="color: black;font-size: 0.8em;">{{blockH}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+                style="color: black;font-size: 0.8em;">{{districtH}}</span>
+        </div>
+        <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+            <span style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{creationDate}}</span><br>
+            <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                    class="lang_change_color">/अ</span></span>
+            <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                    class="lang_change_color">/A</span></span>
+        </div>
+    </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+    <!--  <div *ngIf="httpClient.loadingFlag" class="loadImg">-->
+    <!--    <img src="assets/imgs/loading.gif" alt="load" >-->
+    <!--  </div>-->
+
+    <!--Skeleton View-->
+    <div *ngIf="httpClient.loadingFlag">
+        <ion-row class="ion-text-center ion-padding ">
+            <ion-col size="6">
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="6">
+
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </ion-col>
+        </ion-row>
+        <ion-list>
+            <ion-grid class="ion-padding">
+                <ion-row>
+                    <ion-col size="12">
+                        <p class="checklist_Varifaction">
+                            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+                        </p>
+                    </ion-col>
+                </ion-row>
+                <ion-card>
+
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="8" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated style="width:80%;margin-top: 10px;"></ion-skeleton-text>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="8" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated style="width:80%;margin-top: 10px;"></ion-skeleton-text>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="8" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated style="width:80%;margin-top: 10px;"></ion-skeleton-text>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="8" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated style="width:80%;margin-top: 10px;"></ion-skeleton-text>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+                <ion-card>
+
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="2" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated
+                                                       style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                                </ion-col>
+                                <ion-col size="8" style="margin-top: 7px;">
+                                    <ion-skeleton-text animated style="width:80%;margin-top: 10px;"></ion-skeleton-text>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+
+                <ion-label><b>
+                    <ion-skeleton-text animated style="width:30%"></ion-skeleton-text>
+                </b></ion-label>
+                <ion-row>
+                    <ion-col size="3" class="ion-text-center">
+                        <!--          <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"-->
+                        <!--               style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>-->
+                        <ion-skeleton-text animated
+                                           style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-skeleton-text animated style="width:80%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width:80%"></ion-skeleton-text>
+
+                    </ion-col>
+                    <ion-col size="3">
+                        <!--          <ion-icon class="clsEye" name="eye-outline"></ion-icon>-->
+                        <ion-skeleton-text animated
+                                           style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="3" class="ion-text-center">
+                        <!--          <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"-->
+                        <!--               style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>-->
+                        <ion-skeleton-text animated
+                                           style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                    </ion-col>
+                    <ion-col size="6">
+                        <ion-skeleton-text animated style="width:80%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width:80%"></ion-skeleton-text>
+
+                    </ion-col>
+                    <ion-col size="3">
+                        <!--          <ion-icon class="clsEye" name="eye-outline"></ion-icon>-->
+                        <ion-skeleton-text animated
+                                           style="width:30px;height: 30px;border-radius:80px;"></ion-skeleton-text>
+
+
+                    </ion-col>
+                </ion-row>
+
+
+            </ion-grid>
+
+        </ion-list>
+    </div>
+    <!-- Normal View-->
+
+    <div *ngIf="!httpClient.loadingFlag">
+        <form *ngIf="httpClient.currentLanguage=='english'">
+            <!--      <ion-toolbar>-->
+            <!--        <ion-segment [(ngModel)]="userTab" name="userTab">-->
+            <!--          <ion-segment-button value="Action">-->
+            <!--            <span style="color: black" class="ion-text-capitalize">PV Details</span>-->
+            <!--          </ion-segment-button>-->
+            <!--          <ion-segment-button value="viewDetails">-->
+            <!--            <span style="color: black" class="ion-text-capitalize">View Details</span>-->
+            <!--          </ion-segment-button>-->
+            <!---->
+            <!--        </ion-segment>-->
+            <!--      </ion-toolbar>-->
+
+            <ion-segment [(ngModel)]="userTab" name="userTab">
+                <ion-segment-button value="Action">
+                    <ion-label>PV Details</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="viewDetails">
+                    <ion-label>View Details</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <div [ngSwitch]="userTab">
+
+                <ion-list *ngSwitchCase="'Action'">
+<!--
+                    <ion-list>
+                        <ion-radio-group [ngModel]="isFarmerAcceptancees"  name="isFarmerAcceptance">
+                            <ion-list-header>
+                                <ion-label>Farmer agrees for pre-verification ?</ion-label>
+                            </ion-list-header>
+
+                            <ion-item>
+                                <ion-label>Yes</ion-label>
+                                <ion-radio disabled slot="start" value="Yes"></ion-radio>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label>No</ion-label>
+                                <ion-radio disabled slot="start" value="No"></ion-radio>
+                            </ion-item>
+
+
+                        </ion-radio-group>
+                    </ion-list>
+-->
+
+                    <ion-grid *ngIf="notAcceptanceDocPathRow==true" class="ion-padding">
+
+                        <div >
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">Preferred Khasra Number</ion-label>
+                                <ion-input type="text" disabled [(ngModel)]="khasraNo" name="khasraNo"></ion-input>
+                            </ion-item>
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">Suitable khasara for {{schemeName}}</ion-label>
+                                <ion-input disabled pattern="[0-9.,/]+" type="tel" [(ngModel)]="farmerKhasraNo"
+                                            name="farmerKhasraNo"></ion-input>
+                            </ion-item>
+                        </div>
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">Checklist</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-card *ngFor="let data of preVerificationChecklistData; let i=index;">
+                            <ion-card-content>
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col size="2" style="margin-top: 7px;"><span class="clsEye1">&nbsp;{{i + 1}}&nbsp;</span>
+                                        </ion-col>
+                                        <ion-col size="2" style="margin-top: 7px;">
+                                            <ion-icon class="clscloseRed" *ngIf="data.IsChecked=='False'"
+                                                      name="close"></ion-icon>
+                                            <ion-icon class="clsCheckGreen" *ngIf="data.IsChecked=='True'"
+                                                      name="checkmark"></ion-icon>
+                                        </ion-col>
+                                        <ion-col size="8" class="clsbtwntxt"><b>{{data.ChecklistMasterENGLISH}}</b>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-card-content>
+                        </ion-card>
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">View Documents</p>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Picture of</span><br>
+                                <span style="font-size: 0.9em;color: black">"Nazaria Naksha"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgSignedMap)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Picture of</span><br>
+                                <span style="font-size: 0.9em;color: black">"{{schemeName}} land with farmer and officer"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgFarmerWithOfficer)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="subsidySchemeId=='5'">
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Picture of</span><br>
+                                <span style="font-size: 0.9em;color: black">"Source of Irrigation Photo"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgSourceOfIrrigation)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+
+
+                    </ion-grid>
+                    <div *ngIf="notAcceptanceDocPathRow==false">
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">View Documents</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Picture of</span><br>
+                                <span style="font-size: 0.9em;color: black">"With farmer and officer"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgFarmerWithOfficer)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Picture of</span><br>
+                                <span style="font-size: 0.9em;color: black">"Farmer's non-consent letter"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(notAcceptanceDocPath)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'viewDetails'">
+                    <ion-row class="ion-padding" style="background-color:#eaeaea;padding-bottom: 0">
+                        <ion-col size="3" class="ion-text-center">
+             
+                                 <img alt="userimg" *ngIf="FarmerPhoto" src="{{FarmerPhoto}}" width="70px" height="70px" style="border-radius: 180px"/>
+                                 <img alt="userimg" *ngIf="!FarmerPhoto" src="assets/imgs/user.png" width="70px" height="70px" style="border-radius: 180px"/>
+                            
+
+                        </ion-col>
+                        <ion-col size="8">
+                            <ion-row>
+                                <ion-col size="12" class="ion-no-padding"><span
+                                        style="font-size: 1.0em;font-weight: 700">{{farmerName}}</span></ion-col>
+                                <ion-col size="12" class="ion-no-padding"><span style="font-size: 0.9em;color: #8b8b8b"
+                                                                                class="ion-text-wrap">{{schemeName}}</span>
+                                </ion-col>
+                                <ion-col class="ion-no-padding" size="12">
+                                    <ion-buttons *ngIf="mobileNo">
+                                        <ion-button class="mobileBtn">
+                                            <span>+91 &nbsp;{{mobileNo}}</span>
+                                        </ion-button>
+                                    </ion-buttons>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row class="colRow">
+                        <ion-col size="12" class="ion-padding">
+                            <span>Father Name : </span>
+                            <span><b>{{fatherName}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>Caste Category : </span>
+                            <span><b>{{caste}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>Sub Caste Category : </span>
+                            <span><b>{{subCaste}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>Village : </span>
+                            <span><b>{{village}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>Tehsil : </span>
+                            <span><b>{{block}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>District : </span>
+                            <span><b>{{district}}</b> </span>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <p class="checklist_Varifaction">View Documents</p>
+                        </ion-col>
+                    </ion-row>
+<!--                    <ion-label class="viewDoc"><b></b></ion-label>-->
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                 style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>"Nazaria Naksha"</b><br>
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionNazaria()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                 style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>"Jamaband"</b><br>
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionJama()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+
+            </div>
+        </form>
+        <form *ngIf="httpClient.currentLanguage=='hindi'">
+            <!--      <ion-toolbar no-border-top>-->
+            <!--        <ion-segment [(ngModel)]="userTab" name="userTab">-->
+            <!--          <ion-segment-button value="Action">-->
+            <!--            <span style="color: black" text-capitalize>PV विवरण</span>-->
+            <!--          </ion-segment-button>-->
+            <!--          <ion-segment-button value="viewDetails">-->
+            <!--            <span style="color: black" text-capitalize>विवरण देखें</span>-->
+            <!--          </ion-segment-button>-->
+            <!---->
+            <!--        </ion-segment>-->
+            <!--      </ion-toolbar>-->
+            <ion-segment [(ngModel)]="userTab" name="userTab">
+                <ion-segment-button value="Action">
+                    <ion-label>PV विवरण</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="viewDetails">
+                    <ion-label>विवरण देखें</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <div [ngSwitch]="userTab">
+
+                <ion-list *ngSwitchCase="'Action'">
+<!--
+                    <ion-list>
+                        <ion-radio-group [ngModel]="isFarmerAcceptancees" name="isFarmerAcceptance" >
+                            <ion-list-header>
+                                <ion-label>प्री वेरिफिकेशन के लिए कृषक सहमत है ?</ion-label>
+                            </ion-list-header>
+
+                            <ion-item>
+                                <ion-label>हां</ion-label>
+                                <ion-radio disabled slot="start" value="Yes"></ion-radio>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label>नहीं</ion-label>
+                                <ion-radio disabled slot="start" value="No"></ion-radio>
+                            </ion-item>
+
+
+                        </ion-radio-group>
+                    </ion-list>
+-->
+                    <ion-grid *ngIf="notAcceptanceDocPathRow==true" class="ion-padding">
+                        <div>
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">मुख्य खसरा नंबर</ion-label>
+                                <ion-input type="text" disabled [(ngModel)]="khasraNo" name="khasraNo"></ion-input>
+                            </ion-item>
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">{{schemeNameH}} का संभावित खसरा </ion-label>
+                                <ion-input disabled pattern="[0-9.,/]+" type="tel" [(ngModel)]="farmerKhasraNo"
+                                           name="farmerKhasraNo"></ion-input>
+                            </ion-item>
+                        </div>
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">सत्यापन के लिए चेकलिस्ट</p>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-card *ngFor="let data of preVerificationChecklistData; let i=index;">
+
+                            <ion-card-content>
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col size="2" style="margin-top: 7px;"><span class="clsEye1">&nbsp;{{i + 1}}&nbsp;</span>
+                                        </ion-col>
+                                        <ion-col size="2" style="margin-top: 7px;">
+                                            <ion-icon class="clscloseRed" *ngIf="data.IsChecked=='False'"
+                                                      name="close"></ion-icon>
+                                            <ion-icon class="clsCheckGreen" *ngIf="data.IsChecked=='True'"
+                                                      name="checkmark"></ion-icon>
+                                        </ion-col>
+                                        <ion-col size="8" class="clsbtwntxt"><b>{{data.ChecklistMasterHINDI}}</b>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-card-content>
+                        </ion-card>
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">दस्तावेज़ देखें</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">फोटो</span><br>
+                                <span style="font-size: 0.9em;color: black">"नज़रिया नक्शा"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgSignedMap)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">फोटो</span><br>
+                                <span style="font-size: 0.9em;color: black">"किसान और अधिकारी के साथ {{schemeNameH}} का स्थान "</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgFarmerWithOfficer)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="subsidySchemeId=='5'">
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">फोटो</span><br>
+                                <span style="font-size: 0.9em;color: black">"सिंचाई का स्रोत"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgSourceOfIrrigation)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+
+
+                    </ion-grid>
+                    <div *ngIf="notAcceptanceDocPathRow==false">
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">दस्तावेज़ देखें</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">फोटो</span><br>
+                                <span style="font-size: 0.9em;color: black">"किसान और अधिकारी के साथ"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(imgFarmerWithOfficer)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="3" class="ion-text-center">
+                                <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                     style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                            </ion-col>
+                            <ion-col size="6">
+                                <span style="font-size: 0.8em;color: #9a9a9a">फोटो</span><br>
+                                <span style="font-size: 0.9em;color: black">"कृषक का असहमति पत्र"</span>
+
+                            </ion-col>
+                            <ion-col size="3" (click)="showImageDom(notAcceptanceDocPath)">
+                                <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </div>
+
+
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'viewDetails'">
+                    <ion-row class="ion-padding" style="background-color:#eaeaea;padding-bottom: 0">
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" *ngIf="FarmerPhoto" src="{{FarmerPhoto}}" width="70px" height="70px" style="border-radius: 180px"/>
+                            <img alt="userimg" *ngIf="!FarmerPhoto" src="assets/imgs/user.png" width="70px" height="70px" style="border-radius: 180px"/>
+                       
+
+                        </ion-col>
+                        <ion-col size="8">
+                            <ion-row>
+                                <ion-col size="12" class="ion-no-padding"><span
+                                        style="font-size: 1.0em;font-weight: 700">{{farmerNameH}}</span>
+                                </ion-col>
+                                <ion-col size="12" class="ion-no-padding"><span style="font-size: 0.9em;color: #8b8b8b"
+                                                                                class="ion-text-wrap">{{schemeNameH}}</span>
+                                </ion-col>
+                                <ion-col class="ion-no-padding" size="12">
+                                    <ion-buttons *ngIf="mobileNo">
+                                        <ion-button class="mobileBtn">
+                                            <span>+91 &nbsp;{{mobileNo}}</span>
+                                        </ion-button>
+                                    </ion-buttons>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row class="colRow">
+                        <ion-col size="12" class="ion-padding">
+                            <span>पिता का नाम : </span>
+                            <span><b>{{fatherName}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>जाति श्रेणी : </span>
+                            <span><b>{{caste}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>उप जाति श्रेणी : </span>
+                            <span><b>{{subCaste}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>गाँव : </span>
+                            <span><b>{{villageH}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>तहसील : </span>
+                            <span><b>{{blockH}}</b> </span>
+                        </ion-col>
+                        <ion-col size="12" class="ion-padding">
+                            <span>जिला : </span>
+                            <span><b>{{districtH}}</b> </span>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <p class="checklist_Varifaction">दस्तावेज़ देखें</p>
+                        </ion-col>
+                    </ion-row>
+<!--                    <ion-label class="ion-padding"><b>दस्तावेज़ देखें</b></ion-label>-->
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                 style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>"नज़रिया नक्शा"</b><br>
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionNazaria()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                 style="border-radius: 10px;background-color:#eaeaea;padding: 4px"/>
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>"जमाबन्दी"</b><br>
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionJama()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                        <ion-col size="12">
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+
+            </div>
+        </form>
+    </div>
+</ion-content>

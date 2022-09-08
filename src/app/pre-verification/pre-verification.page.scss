@@ -1,0 +1,174 @@
+   .toolbar-background-md {
+    background: #ffffff;
+  }
+
+  .toolbar-title-md {
+    color: #00AB50;
+  }
+
+  b, strong {
+    font-weight: 600;
+  }
+
+  //ion-buttons {
+  //  font-size: 2.5rem;
+  //}
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  ion-select {
+    width: 100%;
+    max-width: 100% !important;
+    padding-left: 0px;
+  }
+
+  .select-md {
+    padding: 1px 47px 21px 2px;
+  }
+
+  .checkCls {
+    margin-right: 6%;
+    font-size: 1.1em;
+  }
+
+  .listCls {
+    margin-right: 6%;
+    font-size: 1.1em;
+    margin-left: 5px;
+
+  }
+
+  .checkClsG {
+    margin-right: 6%;
+    border-bottom: 2px solid green;
+    font-size: 1.1em;
+    color: #1e854e;
+  }
+
+  .listClsG {
+    margin-right: 6%;
+    border-bottom: 2px solid green;
+    font-size: 1.1em;
+    color: #1e854e;
+    margin-left: 5px;
+  }
+
+  .assignAS_btn {
+    border-radius: 16px;
+    width: 133px;
+    height: 30px;
+    font-size: 13px;
+    text-transform: none;
+    margin: 0 auto;
+    display: block;
+    background: rgba(0, 171, 80, 1);
+    background: -moz-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 171, 80, 1)), color-stop(100%, rgba(100, 195, 16, 1)));
+    background: -webkit-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -o-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    background: linear-gradient(to right, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ab50', endColorstr='#64c310', GradientType=1);
+    box-shadow: none;
+    color: #ffffff;
+    border: 1px solid #53bf1c;
+  }
+
+  .manageAS_btn {
+    border-radius: 16px;
+    width: 133px;
+    height: 30px;
+    font-size: 13px;
+    text-transform: none;
+    margin: 0 auto;
+    display: block;
+    color: #191a17;
+    background-color: #f3fbf0;
+    //background: rgba(0, 171, 80, 1);
+    //background: -moz-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    //background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0, 171, 80, 1)), color-stop(100%, rgba(100, 195, 16, 1)));
+    //background: -webkit-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    //background: -o-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    //background: -ms-linear-gradient(left, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    //background: linear-gradient(to right, rgba(0, 171, 80, 1) 0%, rgba(100, 195, 16, 1) 100%);
+    //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ab50', endColorstr='#64c310', GradientType=1);
+    box-shadow: none;
+  }
+
+  .progress-outer {
+    width: 96%;
+    margin: 10px 2%;
+    padding: 3px;
+    text-align: center;
+    background-color: #f4f4f4;
+    border: 1px solid #dcdcdc;
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .progress-inner {
+    min-width: 15%;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #16A1A4;
+  }
+
+  .imgClassSubsidy {
+    border-radius: 10px;
+    width: 250px;
+    height: 90px;
+  }
+
+  .label {
+    margin: 8px 8px 4px 0;
+  }
+
+  .item {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .pctRow {
+    //border-right: 1px solid lightgray;
+    font-weight: bold;
+  }
+
+  ion-row.filterRow.row {
+    margin-top: 10px;
+  }
+  span.lang_change {
+    color: #59AD1C;
+    font-weight: 400;
+  }
+  span.lang_change_color {
+    color: #647B8C;
+    font-weight: 400;
+  }
+
+  ion-footer{
+    background-color: white;
+
+}
+
+   .arrow {
+     font-size: 1.5em;
+     color: #00AB50;
+     font-weight: 700;
+   }
+   ion-thumbnail.hydrated {
+     width: 100px;
+     height: 60px;
+   }

@@ -1,0 +1,220 @@
+<ion-header class="header">
+    <ion-toolbar>
+        <ion-title *ngIf="httpClient.currentLanguage=='english'">Dashboard</ion-title>
+        <ion-title *ngIf="httpClient.currentLanguage=='hindi'">डैशबोर्ड</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="primary" slot="end" (click)="ionViewWillEnter()">
+                <ion-icon color="primary" name="refresh-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="httpClient.userList.length>0" (click)="changeRole()">
+                <span *ngIf="httpClient.currentLanguage=='english'">Change Role</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'">रोल बदले </span>
+            </ion-button>
+            <ion-button (click)="httpClient.changeLanguage()">
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                        class="lang_change_color">/अ</span></span>
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                        class="lang_change_color">/A</span></span>
+            </ion-button>
+            <ion-button *ngIf="httpClient.currentLanguage=='english'" (click)="logoutPopUp()">
+                <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="httpClient.currentLanguage=='hindi'" (click)="logoutPopUp()">
+                <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="home()">
+                <ion-icon name="home-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="bgColorClass">
+
+    <div class="ion-padding imgClass" *ngIf="getVerificationDashboardData">
+        <ion-row>
+            <ion-col class="ion-no-padding ion-text-capitalize" size="12">
+                <h6>
+                    <span *ngIf="httpClient.currentLanguage=='english'">Hello</span>
+                    <span *ngIf="httpClient.currentLanguage=='hindi'">नमस्कार</span>
+                </h6>
+                <h4>{{httpClient.userData.OfficerNameEn}}</h4>
+            </ion-col>
+        </ion-row>
+        <ion-card class="cardClass">
+            <ion-row>
+                <ion-col class="colBorderPrePost ion-text-center" size="12">
+                    <span class="preClass"><b>
+                            <span *ngIf="httpClient.currentLanguage=='english'">Pre-Verification</span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'">कार्य के पूर्व सत्यापन</span>
+                        </b></span>
+                </ion-col>
+                <ion-col (click)="preVerificationDashboardPage('1')" size="6"
+                    class="colBorder ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">लंबित</span>
+
+                        &nbsp; <span class="yellowText">{{getVerificationDashboardData.SelfTotalPending}}</span></span>
+                </ion-col>
+                <ion-col *ngIf="httpClient.userData.RoleName_EN != 'Agriculture Supervisor'"
+                    (click)="pvVarificationdonebyPage()" size="6" class="colBorder ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Complete</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+                        &nbsp; <span class="greenText">{{getVerificationDashboardData.SelfTotalCompleted}}</span></span>
+                </ion-col>
+                <ion-col *ngIf="httpClient.userData.RoleName_EN == 'Agriculture Supervisor'" (click)="pvCompletePage()"
+                    size="6" class="colBorder ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Complete</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+                        &nbsp; <span class="greenText">{{getVerificationDashboardData.SelfTotalCompleted}}</span></span>
+                </ion-col>
+
+                <ion-col style="background-color: #e3e3e3;"
+                    *ngIf="httpClient.userData.RoleName_EN != 'Agriculture Supervisor'" size="6"
+                    class="colBorder ion-padding ion-text-left">
+                    <span class="selfAAOClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Assigned to AS</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">AS को सौंपा गया</span>
+
+                    </span><br>
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">लंबित</span>
+                        &nbsp; <span
+                            class="yellowText">{{getVerificationDashboardData.AssignedTOASTotalPending}}</span></span>
+
+                </ion-col>
+                <ion-col style="background-color: #e3e3e3;"
+                    *ngIf="httpClient.userData.RoleName_EN != 'Agriculture Supervisor'" size="6"
+                    class="colBorder ion-padding ion-text-left">
+                    <span class="selfAAOClass"></span><br>
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Complete</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+                        &nbsp; <span
+                            class="greenText">{{getVerificationDashboardData.AssignedTOASTotalCompleted}}</span></span>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+        <ion-card class="cardClass">
+            <ion-row>
+                <ion-col class="colBorderPrePost ion-text-center" size="12">
+                    <span class="preClass"><b>
+                            <span *ngIf="httpClient.currentLanguage=='english'"> Post-Verification</span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'">कार्य के बाद सत्यापन</span>
+
+                        </b></span>
+                </ion-col>
+
+                <ion-col (click)="postVerificationDashboardPendingPage('2')" size="6"
+                    class="colBorderGreen ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span>
+                            <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'">लंबित</span>
+                            &nbsp;
+                        </span>
+
+                        <span class="yellowText">{{getVerificationDashboardData.PostVerificationPending}}</span>
+                    </span>
+
+                </ion-col>
+                <ion-col (click)="postVerificationDashboardCompletePage('2')" size="6"
+                    class="colBorderGreen ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Complete</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+                        &nbsp; <span
+                            class="greenText">{{getVerificationDashboardData.PostVerificationCompleted}}</span></span>
+                </ion-col>
+                <ion-col *ngIf="httpClient.userData.RoleName_EN != 'Agriculture Supervisor'"
+                    (click)="gotoPostVerificationPendingListPage()" size="12"
+                    class="ion-text-center colColor ion-padding">
+                    <ion-icon class="iconClass" name="notifications-outline"></ion-icon>
+                    <ion-badge class="badgeClass"><b>.</b></ion-badge>
+
+                    <span class="confirmClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Pending for confirmation </span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पुष्टि के लिए लंबित है</span>
+
+                        &nbsp; <span
+                            class="yellowText">{{getVerificationDashboardData.PostVerificationPendingConfirmation}}</span></span>
+                </ion-col>
+                <ion-col *ngIf="httpClient.userData.RoleName_EN == 'Agriculture Supervisor'"
+                    (click)="gotoWorkConfirmationListPage('GetApplicationToWorkConfirm')" size="12"
+                    class="ion-text-center colColor ion-padding">
+                    <ion-icon class="iconClass" name="notifications-outline"></ion-icon>
+                    <ion-badge class="badgeClass"><b>.</b></ion-badge>
+
+                    <span class="confirmClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Pending for the confirmation of
+                            construction </span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">निर्माण की पुष्टि के लिए लंबित</span>
+
+                        &nbsp; <span
+                            class="yellowText">{{getVerificationDashboardData.PostVerificationPendingConfirmation}}</span></span>
+                </ion-col>
+                <ion-col
+                    *ngIf="httpClient.userData.RoleName_EN == 'Assistant agriculture officer' || httpClient.userData.RoleName_EN == 'Agriculture Officer District' || httpClient.userData.roleid== '13' || httpClient.userData.roleid== '42'"
+                    (click)="gotoWorkConfirmationListPage('GetHortiApplicationToWorkConfirmAAO')" size="12"
+                    class="ion-text-center colColor ion-padding">
+                    <ion-icon class="iconClass" name="notifications-outline"></ion-icon>
+                    <ion-badge class="badgeClass"><b>.</b></ion-badge>
+
+                    <span class="confirmClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Pending for the confirmation of
+                            construction </span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">निर्माण की पुष्टि के लिए लंबित</span>
+
+                        &nbsp; <span class="yellowText">{{getHortiApplicationToWorkConfirmAAO.length}}</span></span>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+        <ion-card *ngIf="this.aoFlag" class="cardClass">
+            <ion-row *ngIf="dashboardAOcount">
+
+                <ion-col class="colBorderPrePost ion-text-center" size="12">
+                    <span class="preClass"><b>
+                            <span *ngIf="httpClient.currentLanguage=='english'"> Material verification </span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'">सामग्री का सत्यापन</span>
+                        </b></span>
+                </ion-col>
+                <ion-col size="6" (click)="materialVerificationList()" class="colBorder ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">लंबित</span>
+
+                        &nbsp; <span class="yellowText"
+                            *ngIf="dashboardAOcount">{{dashboardAOcount.PendingMaterialVerification}}</span></span>
+                </ion-col>
+                <ion-col (click)="materialVerificationCompletedList(0)" size="6"
+                    class="colBorder ion-padding ion-text-left">
+                    <span class="pcClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Complete</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण</span>
+                        &nbsp; <span class="greenText">{{dashboardAOcount.CompletedMaterialVerification}}</span></span>
+                </ion-col>
+                <ion-col (click)="materialPendingGathered()" size="12" class="ion-text-center colColor ion-padding">
+                    <span class="confirmClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'"> Material Pending to be Gathered</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">सामग्री एकत्र करने के लिए लंबित है</span>
+                        &nbsp; <span class="yellowText">{{dashboardAOcount.PendingMaterialGathering}}</span></span>
+                </ion-col>
+                <ion-col (click)="materialVerificationCompletedList(1)" size="12"
+                    class="ion-text-center colColor ion-padding">
+
+                    <span class="confirmClass">
+                        <span *ngIf="httpClient.currentLanguage=='english'">Pending For Work Confirmation</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'">कार्य की पुष्टि के लिए लंबित </span>
+
+                        &nbsp; <span class="yellowText">{{dashboardAOcount.CompletedMaterialVerification}}</span></span>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+
+    </div>
+    <!--<ion-button (click)="takePhoto()"> Photo</ion-button>-->
+
+</ion-content>

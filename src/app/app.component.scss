@@ -1,0 +1,9 @@
+.header::after { display: none;}
+.header {
+  background-color: white;
+  box-shadow: 1px 8px 40px #0000001a;
+}
+ion-app.md.ion-page.hydrated {
+  font-size: 0.9em;
+  font-family: sans-serif;
+}

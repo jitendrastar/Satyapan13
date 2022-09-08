@@ -1,0 +1,425 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">सत्यापन</span>
+      <span *ngIf="httpClient.currentLanguage=='english'">Verification</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngFor="let item of checkList;let i=index;" style="width: 95%;margin: 0 auto;">
+    <ion-card style="margin-top: 10px;" *ngIf="item.IsPVDone=='True'">
+      <ion-card-header color="primary">
+        {{item.AddressType}}
+        <div style="display: block;float: left ;margin: -2px 0">
+          <img src="assets/icon/location.svg" width="25px"/>
+        </div>
+      </ion-card-header>
+      <ion-row style="padding-top: 10px; padding-bottom: 10px;">
+        <ion-col size="8">
+                    <span *ngIf="httpClient.currentLanguage=='english'"
+                          style="font-size: 15px;">{{item.AddressEn}}</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 15px;">{{item.AddressHi}}</span>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center ion-no-padding">
+          <ion-icon *ngIf="item.isSelectedClose" name="close"
+                    style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+          </ion-icon>
+
+          <ion-icon *ngIf="!item.isSelectedClose" name="close"
+                    style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+          </ion-icon>
+          <span class="incorrectText" *ngIf="httpClient.currentLanguage=='english'">InCorrect</span>
+          <span class="incorrectText" *ngIf="httpClient.currentLanguage=='hindi'">सही नहीं है</span>
+
+        </ion-col>
+        <ion-col size="2" class="ion-text-center ion-no-padding">
+
+          <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+
+                    style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+          </ion-icon>
+          <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+
+                    style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+          </ion-icon>
+          <span class="correctText" *ngIf="httpClient.currentLanguage=='english'">Correct</span>
+          <span class="correctText" *ngIf="httpClient.currentLanguage=='hindi'">सही है</span>
+
+        </ion-col>
+        <ion-row style="padding: 0 5px" *ngIf="item.isSelectedCheck">
+        <ion-col size="6" class="ion-text-center photoText">
+             <span *ngIf="httpClient.currentLanguage=='english'"> Inner Photo</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">भीतरी फोटो </span>
+         </ion-col>
+        <ion-col size="6" class="ion-text-center photoText">
+             <span *ngIf="httpClient.currentLanguage=='english'"> Outer Photo</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">बाहरी फोटो</span>
+         </ion-col>
+        <ion-col size="6" style="display: flex">
+          <img (click)="showImg(item.PVFilePathInner)" src="{{item.PVFilePathInner}}" class="photoCls" *ngIf="item.PVFilePathInner" alt="Inner Photo">
+        </ion-col>
+        <ion-col size="6" style="display: flex">
+          <img (click)="showImg(item.PVFilePath)" src="{{item.PVFilePath}}"  class="photoCls" *ngIf="item.PVFilePath" alt="Outer Photo">
+
+        </ion-col>
+        </ion-row>
+           <ion-col *ngIf="!item.isSelectedCheck" style="background-color: #eeeeee" size="12">
+             <ion-item>
+             <ion-label position="stacked">Remark</ion-label>
+            <ion-textarea style="font-weight: bolder" rows="3" type="text" readonly placeholder="test remark" ></ion-textarea>
+<!--            <ion-textarea *ngIf="!item.remarks" rows="3" value="No Remark Found"></ion-textarea>-->
+             </ion-item>
+          </ion-col>
+
+      </ion-row>
+
+    </ion-card>
+  </div>
+
+
+  <ion-card style="margin-top: 10px;" *ngIf="siteMap" >
+    <ion-card-header color="primary">
+      <span *ngIf="httpClient.currentLanguage=='english'">  Site Map / Blue Print</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">साइट मानचित्र / ब्लूप्रिंट  </span>
+
+      <div style="display: block;float: left ;margin: -2px 0">
+        <img src="assets/icon/location.svg" width="25px"/>
+      </div>
+    </ion-card-header>
+    <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+      <ion-col size="8">
+        <ion-button style="width: 200px;font-size: 12px" (click)="openPDF(siteMap)" small>
+          <span *ngIf="httpClient.currentLanguage=='english'">View Site Map / Blue Print</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'">साइट मानचित्र / ब्लूप्रिंट देखें</span>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center ion-no-padding">
+        <ion-icon *ngIf="docIsChecked=='False'"  name="close"
+                  style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+        </ion-icon>
+
+        <ion-icon *ngIf="docIsChecked=='True'"  name="close"
+                  style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+        </ion-icon>
+        <span class="incorrectText" *ngIf="httpClient.currentLanguage=='english'">InCorrect</span>
+        <span class="incorrectText" *ngIf="httpClient.currentLanguage=='hindi'">सही नहीं है</span>
+
+      </ion-col>
+      <ion-col size="2" class="ion-text-center ion-no-padding">
+
+        <ion-icon *ngIf="docIsChecked=='True'" name="checkmark-outline"
+
+                  style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+        </ion-icon>
+
+        <ion-icon *ngIf="docIsChecked=='False'" name="checkmark-outline"
+
+                  style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+        </ion-icon>
+
+        <span class="correctText" *ngIf="httpClient.currentLanguage=='english'">Correct</span>
+        <span class="correctText" *ngIf="httpClient.currentLanguage=='hindi'">सही है</span>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="docIsChecked=='False'" style="border: 1px solid #dedede;border-radius: 5px;margin: 5px 10px;">
+    <ion-col  size="4" class="ion-text-center" style="border: 1px solid #dedede;" *ngIf="httpClient.currentLanguage=='english'"> Remark</ion-col>
+    <ion-col  size="4" class="ion-text-center" style="border: 1px solid #dedede;" *ngIf="httpClient.currentLanguage=='hindi'"> टिप्पणी</ion-col>
+      <ion-col   size="8" class="ion-text-center">{{docRemarkCompleted}}</ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+
+  <!--<div *ngIf="Heading=='0'">
+
+
+    <ion-list>
+      <ion-radio-group [(ngModel)]="menufType" (click)="checkRadioChange(menufType)" >
+
+        <ion-item>
+          <ion-label>SSP Plants</ion-label>
+          <ion-radio slot="start" value="ssp"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Micronutrient Fertilizer (Straight)</ion-label>
+          <ion-radio slot="start" value="straight"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Mixtures of Micronutrient (Without NPK)</ion-label>
+          <ion-radio slot="start" value="npk"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+      &lt;!&ndash;If SSP&ndash;&gt;
+      <div *ngIf="menufType=='ssp'">
+        <div *ngFor="let item of ssp;let i=index;">
+
+          <ion-item *ngIf="item.IsInputBox==1" style="width: 98%;margin: 0 auto;">
+            <ion-label position="floating">
+                            <span *ngIf="httpClient.currentLanguage=='english'"
+                                  style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"
+                    style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="item.inputField" name="inputField"></ion-input>
+          </ion-item>
+
+
+          <ion-card style="margin-top: 10px;" *ngIf="item.IsInputBox==0">
+            <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+              <ion-col size="8">
+                    <span *ngIf="httpClient.currentLanguage=='english'"
+                          style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"
+                      style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon *ngIf="item.isSelectedClose" name="close"
+                          (click)="checkedCloseSSP(i,item.isSelectedClose)"
+                          style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+                </ion-icon>
+                <ion-icon *ngIf="!item.isSelectedClose" name="close"
+                          (click)="checkedCloseSSP(i,item.isSelectedClose)"
+                          style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+                          (click)="checkedVCheckSSP(i,item.isSelectedCheck)"
+                          style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+                <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+                          (click)="checkedVCheckSSP(i,item.isSelectedCheck)"
+                          style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+
+
+        </div>
+      </div>
+      &lt;!&ndash;If Straight&ndash;&gt;
+      <div *ngIf="menufType=='straight'">
+        <div *ngFor="let item of straight;let i=index;">
+
+          <ion-item *ngIf="item.IsInputBox==1" style="width: 98%;margin: 0 auto;">
+            <ion-label position="floating">
+                            <span *ngIf="httpClient.currentLanguage=='english'"
+                                  style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"
+                    style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="item.inputField" name="inputField"></ion-input>
+          </ion-item>
+
+
+          <ion-card style="margin-top: 10px;" *ngIf="item.IsInputBox==0">
+            <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+              <ion-col size="8">
+                    <span *ngIf="httpClient.currentLanguage=='english'"
+                          style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"
+                      style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon *ngIf="item.isSelectedClose" name="close"
+                          (click)="checkedVCloseStraight(i,item.isSelectedClose)"
+                          style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+                </ion-icon>
+                <ion-icon *ngIf="!item.isSelectedClose" name="close"
+                          (click)="checkedVCloseStraight(i,item.isSelectedClose)"
+                          style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+                          (click)="checkedVCheckStraight(i,item.isSelectedCheck)"
+                          style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+                <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+                          (click)="checkedVCheckStraight(i,item.isSelectedCheck)"
+                          style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+
+
+        </div>
+      </div>
+      &lt;!&ndash;If Without NPK&ndash;&gt;
+      <div *ngIf="menufType=='npk'">
+        <div *ngFor="let item of npk;let i=index;">
+
+          <ion-item *ngIf="item.IsInputBox==1" style="width: 98%;margin: 0 auto;">
+            <ion-label position="floating">
+                            <span *ngIf="httpClient.currentLanguage=='english'"
+                                  style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'"
+                    style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+            </ion-label>
+            <ion-input type="text" [(ngModel)]="item.inputField" name="inputField"></ion-input>
+          </ion-item>
+
+
+          <ion-card style="margin-top: 10px;" *ngIf="item.IsInputBox==0">
+            <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+              <ion-col size="8">
+                    <span *ngIf="httpClient.currentLanguage=='english'"
+                          style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+                <span *ngIf="httpClient.currentLanguage=='hindi'"
+                      style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon *ngIf="item.isSelectedClose" name="close"
+                          (click)="checkedVCloseNPK(i,item.isSelectedClose)"
+                          style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+                </ion-icon>
+                <ion-icon *ngIf="!item.isSelectedClose" name="close"
+                          (click)="checkedVCloseNPK(i,item.isSelectedClose)"
+                          style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+                          (click)="checkedVCheckNPK(i,item.isSelectedCheck)"
+                          style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+                <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+                          (click)="checkedVCheckNPK(i,item.isSelectedCheck)"
+                          style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                </ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+
+
+        </div>
+      </div>
+
+    </ion-list>
+
+  </div>
+  <div *ngIf="Heading!='0'">
+
+    &lt;!&ndash;
+            <div  *ngFor="let item of preVerificationChecklistData;let i=index;">
+
+                <ion-item  *ngIf="item.IsInputBox==1"   style="width: 98%;margin: 0 auto;">
+                    <ion-label position="floating">
+                        <span *ngIf="httpClient.currentLanguage=='english'" style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+                        <span *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+                    </ion-label>
+                    <ion-input   type="text"></ion-input>
+                </ion-item>
+
+
+                <ion-card style="margin-top: 10px;" *ngIf="item.IsInputBox==0">
+                    <ion-row style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+                        <ion-col size="8">
+                        <span *ngIf="httpClient.currentLanguage=='english'"
+                              style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'"
+                                  style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+                        </ion-col>
+                        <ion-col size="2" class="ion-text-center">
+                            <ion-icon *ngIf="item.isSelectedClose" name="close" (click)="checkedVClose(i,item.isSelectedClose)"
+                                      style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+                            </ion-icon>
+                            <ion-icon *ngIf="!item.isSelectedClose" name="close" (click)="checkedVClose(i,item.isSelectedClose)"
+                                      style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                            </ion-icon>
+                        </ion-col>
+                        <ion-col size="2" class="ion-text-center">
+                            <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+                                      (click)="checkedVCheck(i,item.isSelectedCheck)"
+                                      style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+                            </ion-icon>
+                            <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+                                      (click)="checkedVCheck(i,item.isSelectedCheck)"
+                                      style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+                            </ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+
+            </div>
+    &ndash;&gt;
+
+
+    <div *ngIf="preVerificationChecklistData">
+      <ion-card *ngFor="let item of preVerificationChecklistData;let i=index;">
+        <ion-card-header *ngIf="i==0" color="primary">
+          {{item.Heading}}
+        </ion-card-header>
+        <ion-card-header *ngIf="i!=0 && preVerificationChecklistData[i-1].Heading!=item.Heading" color="primary">
+          {{item.Heading}}
+        </ion-card-header>
+        <ion-item *ngIf="item.IsInputBox==1" style="width: 98%;margin: 0 auto;">
+          <ion-label position="floating">
+                        <span *ngIf="httpClient.currentLanguage=='english'"
+                              style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"
+                  style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+          </ion-label>
+          <ion-input type="text" [(ngModel)]="item.inputField" name="inputField"></ion-input>
+        </ion-item>
+
+
+        <ion-row  *ngIf="item.IsInputBox==0" style="padding-top: 10px; padding-bottom: 10px; padding-left: 5px;">
+          <ion-col size="8">
+                    <span *ngIf="httpClient.currentLanguage=='english'"
+                          style="font-size: 15px;">{{item.ChecklistMasterENGLISH}}</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'"
+                  style="font-size: 15px;">{{item.ChecklistMasterHINDI}}</span>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            <ion-icon *ngIf="item.isSelectedClose" name="close"
+                      (click)="checkedVClose(i,item.isSelectedClose)"
+                      style="background: red; color : white; padding : 3px;font-size  : 24px; border-radius : 100%;">
+            </ion-icon>
+            <ion-icon *ngIf="!item.isSelectedClose" name="close"
+                      (click)="checkedVClose(i,item.isSelectedClose)"
+                      style="background: #e8e8e8;color : black;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center">
+            <ion-icon name="checkmark-outline" *ngIf="item.isSelectedCheck"
+                      (click)="checkedVCheck(i,item.isSelectedCheck)"
+                      style="background: #10b05b;color: white;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+            <ion-icon name="checkmark-outline" *ngIf="!item.isSelectedCheck"
+                      (click)="checkedVCheck(i,item.isSelectedCheck)"
+                      style="background: #e8e8e8;color: black;padding: 3px;font-size: 24px;border-radius: 100%;">
+            </ion-icon>
+          </ion-col>
+        </ion-row>
+
+      </ion-card>
+
+    </div>
+  </div>-->
+
+
+</ion-content>

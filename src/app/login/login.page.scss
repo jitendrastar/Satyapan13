@@ -1,0 +1,149 @@
+.clsPlzSign {
+  font-size: 0.9rem;
+   text-align: left;
+  font-weight: 500;
+  margin-top: 20%;
+  padding: 0 20px;
+
+}
+
+.rememberText {
+  padding: 0 10px;
+   font-size:0.9em;
+
+}
+
+.usernameCol {
+  margin-top: 4%;
+  border-bottom: 1px solid #00000017;
+}
+
+.pswdCol {
+
+  border-bottom: 1px solid #00000017;
+}
+
+.welcomeTxt {
+  font-size: 1.2em;
+   text-align: center;
+  margin-top: 10px;
+}
+
+.ion-checkbox .ion-checkbox-checked {
+  background-color: #99c847;
+
+}
+
+.ion-checkbox .ion-checkbox-icon {
+  border-color: #00AB50;
+}
+
+.my-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-top: 10px;
+  border-color: #00AB50;
+
+}
+
+.icon-inline {
+  color: #63C310;
+  font-size: 20px;
+}.icon-inline-eye {
+  color: #63C310;
+  font-size: 20px;
+}
+
+.login_btn {
+  border-radius: 50px;
+  width: 205px;
+  height: 40px;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: block;
+  background: rgba(0, 171, 80, 1);
+
+  box-shadow: none;
+  border: 1px solid #53bf1c;
+  color: #ffffff;
+}
+
+form, input, optgroup, select {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  border: 0;
+}
+
+/*ion-content{
+ .custom_header{
+   min-height: 46px;
+   width: 100%;
+   box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.18);
+   -moz-box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.18);
+   -o-box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.18);
+   .rajlogo {
+     margin: 0 auto;
+     display: block;
+     width: 142px;
+     height: 42px;
+     margin-top: 42px;
+   }
+ }
+
+}
+
+.title_welcome { text-align: center;
+ font-size:22px ;
+ margin-top: 46px;
+ margin-bottom: 72px;
+ font-weight: 600;
+}
+.input-class{
+ width: 100%;
+ float: left;
+}
+.p-25 { padding: 25px 25px;}
+.f-15 {font-size: 15px;}
+.b-b{border:none; border-bottom: 1px solid #e0e0e0; }
+.m-b-10 {
+ margin-bottom: 0px;}
+.green { color: #63C310;}
+.n-m input { margin:0px; line-height: 62px; background: #ffffff;}
+.icon-inline { position: absolute; top: 18px; right: 25px; color: #63C310;font-size: 30px;}
+.login_btn { border-radius: 50px; width:205px; height: 40px; font-size: 15px; text-transform: uppercase; margin: 0 auto; margin-top:42px; display: block;background: rgba(0,171,80,1);
+ background: -moz-linear-gradient(left, rgba(0,171,80,1) 0%, rgba(100,195,16,1) 100%);
+ background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,171,80,1)), color-stop(100%, rgba(100,195,16,1)));
+ background: -webkit-linear-gradient(left, rgba(0,171,80,1) 0%, rgba(100,195,16,1) 100%);
+ background: -o-linear-gradient(left, rgba(0,171,80,1) 0%, rgba(100,195,16,1) 100%);
+ background: -ms-linear-gradient(left, rgba(0,171,80,1) 0%, rgba(100,195,16,1) 100%);
+ background: linear-gradient(to right, rgba(0,171,80,1) 0%, rgba(100,195,16,1) 100%);
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ab50', endColorstr='#64c310', GradientType=1 );
+ box-shadow: none;
+ border: 1px solid #53bf1c;}*/
+
+
+ion-icon.icon.icon-md.ion-md-eye {
+  margin: 0;
+  font-size: 1.6em;
+  color: #78cb31;
+}
+
+ion-icon.icon.icon-md.ion-md-eye-off {
+  margin: 0;
+  font-size: 1.6em;
+  color: #78cb31;
+}
+
+.item-md .item-button {
+  padding: 0 0;
+  height: 25px;
+  font-size: 1.2rem;
+}
+.forgetTxt{
+  font-size: 0.9em;
+  margin-top: 10px;
+}

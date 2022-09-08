@@ -1,0 +1,83 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Material Verification</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">सामग्री का सत्यापन</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row style="border-bottom: 1px solid #f4f4f4;padding-top: 10px"
+    *ngFor="let data of materialVerificationList;let i=index;">
+    <ion-col size="3" class="ion-text-center">
+      <img alt="userimg" src="{{data.FarmerPhoto}}" width="50px" height="50px" style="border-radius: 180px" />
+      <ion-buttons>
+        <ion-button class="callBtn" (click)="callFarmer(data.MobileNo)">
+          <ion-icon style="font-size: smaller;color: #00AB50;font-weight: 700" name="call"></ion-icon>
+          <span style="color: black;font-weight: 500">&nbsp;Call</span>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+    <ion-col style="line-height: 17px" size="6" (click)="materialVerification(data)">
+      <span style="font-size: 0.9em"
+        class="ion-text-wrap"><b>{{data.FarmerName==''?data.FarmerNameHnd:data.FarmerName}}</b></span><br>
+      <span style="font-size: 0.9em" class="ion-text-wrap">
+        <span *ngIf="httpClient.currentLanguage=='english'"> {{data.SchemeNameEng}}</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> {{data.SchemeNameHnd}}</span>
+      </span><br>
+
+      <span style="font-size: 0.8em" class="ion-text-wrap"><span style="color: #666666">
+          <span *ngIf="httpClient.currentLanguage=='english'"> Village:</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'"> गाँव</span>
+        </span><b>
+          <span *ngIf="httpClient.currentLanguage=='english'"> {{data.Village_Eng}}</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'"> {{data.Village_Mangal}}</span>
+
+        </b> ,
+        &nbsp;
+        <span style="color: #666666">
+          <span *ngIf="httpClient.currentLanguage=='english'"> Tahsil:</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'"> तहसील:</span>
+        </span><b>
+          <span *ngIf="httpClient.currentLanguage=='english'">{{data.BLOCK_ENG}}</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'"> {{data.BLOCK_MANGAL}}</span>
+
+        </b></span>
+      <br />
+      <span style="font-size: 0.8em" class="ion-text-wrap"><span style="color: #666666">
+
+          <span *ngIf="httpClient.currentLanguage=='english'"> District:</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'">जिला:</span>
+        </span><b>
+          <span *ngIf="httpClient.currentLanguage=='english'"> {{data.DISTRICT_ENG}}</span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'"> {{data.DISTRICT_MANGAL}}</span>
+
+        </b></span>
+    </ion-col>
+    <ion-col size="3" (click)="materialVerification(data)">
+      <ion-row>
+        <ion-col class="ion-text-center ion-no-padding" size="12">
+          <span style="color:darkgray;font-size: 0.8em">{{data.ApplicationNo}}</span>
+        </ion-col>
+        <ion-col class="ion-text-center ion-no-padding" size="12">
+          <span style="font-size: 0.8em">{{data.CreationDate}}</span>
+        </ion-col>
+        <ion-col class="ion-text-center ion-padding-end" size="12">
+          <ion-icon style="font-size: 1.5em;color: #00AB50;font-weight: 700" name="chevron-forward-outline">
+          </ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
+</ion-content>

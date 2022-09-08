@@ -1,0 +1,66 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'">Take Photos</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'">फोटो ले</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+      <ion-button (click)="closeModel()">
+        <span *ngIf="httpClient.currentLanguage=='english'">Close</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'"> बंद करे</span>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 style="color: #00AB50;
+  padding: 15px;
+  font-size: 15px;
+  line-height: 27px;">
+    <span *ngIf="httpClient.currentLanguage=='english'"> Please take two photos first one should be outside of the
+      location with applicant and second one inside of the location with applicant/ representative</span>
+
+    <span *ngIf="httpClient.currentLanguage=='hindi'">कृपया दो फोटो ले पहली फोटो स्थान के बाहर आवेदक/प्रतिनिधि के साथ और दूसरी
+      फोटो स्थान के अन्दर आवेदक के साथ </span>
+  </h2>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button expand="block" (click)="takePhotos(1)">
+        <span *ngIf="httpClient.currentLanguage=='english'"> Inner Photo</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">भीतरी फोटो </span>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button expand="block" (click)="takePhotos(2)">
+        <span *ngIf="httpClient.currentLanguage=='english'"> Outer Photo</span>
+        <span *ngIf="httpClient.currentLanguage=='hindi'">बाहरी फोटो</span>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="6">
+      <img src="{{innerPhoto}}" *ngIf="innerPhoto">
+    </ion-col>
+    <ion-col size="6">
+      <img src="{{outerPhoto}}" *ngIf="outerPhoto">
+
+    </ion-col>
+  </ion-row>
+
+  <div class="ion-padding">
+    <ion-button expand="block" *ngIf="innerPhoto && outerPhoto" (click)="submit()">
+      <span *ngIf="httpClient.currentLanguage=='english'">SUBMIT</span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">जमा करे </span>
+    </ion-button>
+
+  </div>
+</ion-content>

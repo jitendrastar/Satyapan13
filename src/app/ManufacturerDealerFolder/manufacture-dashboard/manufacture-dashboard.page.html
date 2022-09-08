@@ -1,0 +1,216 @@
+<!--<div class="ion-page">-->
+<ion-header class="header">
+  <ion-toolbar>
+    <!-- <ion-buttons *ngIf="pageName=='selectrole'" slot="start">
+        <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+    <ion-title *ngIf="httpClient.currentLanguage=='english'&& roleName_EN == 'Manufacturer'">Manufacturer Dashboard</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='english'&& roleName_EN == 'Horticulture Agent'">Dealer Dashboard</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'&& roleName_EN == 'Manufacturer'">निर्माता डैशबोर्ड</ion-title>
+    <ion-title *ngIf="httpClient.currentLanguage=='hindi'&& roleName_EN == 'Horticulture Agent'">डीलर डैशबोर्ड</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+                <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                        class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='english'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="httpClient.currentLanguage=='hindi'" (click)="logoutPopUp()">
+      <ion-icon style="font-size: 1.5em;margin-right: 5px" name="person-circle-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bgColorClass">
+  <!--    <div *ngIf="httpClient.loadingFlag" class="loadImg">-->
+  <!--        <img src="assets/imgs/loading.gif" alt="load">-->
+  <!--    </div>-->
+
+  <ion-refresher  slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content  pullingIcon="chevron-down-circle-outline"
+                            pullingText="Pull to refresh"
+                            refreshingSpinner="circles"
+                            refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <!--Skeleton View-->
+
+  <div *ngIf="httpClient.loadingFlag" class="ion-padding" style="line-height: 1.5">
+    <ion-row class="ion-margin-top">
+      <ion-col class="ion-no-padding ion-text-capitalize" size="12">
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%;height: 50%"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-card class="ion-margin-top" style="border-radius: 15px;margin-top: 20px;">
+      <ion-row>
+        <ion-col class="ion-text-center" size="12">
+          <ion-skeleton-text animated style="width: 40%;margin-left: 30%"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+
+        <ion-col *ngIf="pendingRow==false" size="6" class="colBorder ion-padding ion-text-left">
+
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="6" class="colBorder ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card class="ion-margin-top " style="border-radius: 15px">
+      <ion-row>
+        <ion-col class="ion-text-center" size="12">
+          <ion-skeleton-text animated style="width: 40%;margin-left: 30%"></ion-skeleton-text>
+        </ion-col>
+
+        <ion-col size="6" class="colBorderGreen ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="6" class="colBorderGreen ion-padding ion-text-left">
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==true" size="12" class="ion-text-center colColor ion-padding">
+          <ion-skeleton-text animated style="width: 50%;margin-left: 30%"></ion-skeleton-text>
+
+        </ion-col>
+        <ion-col *ngIf="pendingRow==false" size="12" class="ion-text-center colColor ion-padding">
+          <ion-skeleton-text animated style="width: 50%;margin-left: 30%"></ion-skeleton-text>
+
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <!--Normal View-->
+
+  <div *ngIf="!httpClient.loadingFlag">
+
+    <div  class="ion-padding imgClass">
+
+      <ion-row>
+        <ion-col class="ion-no-padding ion-text-capitalize" size="12">
+          <h6 *ngIf="httpClient.currentLanguage=='english'">Hello ,</h6>
+          <h6 *ngIf="httpClient.currentLanguage=='hindi'">नमस्कार ,</h6>
+          <h4 *ngIf="httpClient.currentLanguage=='english'">{{officerNameEn}}</h4>
+          <h4 *ngIf="httpClient.currentLanguage=='hindi'">{{OfficerNameHi}}</h4>
+        </ion-col>
+        <!--  <ion-col class="ion-no-padding" size="12">-->
+        <!--    <span class="wlcomeClass" class="ion-no-padding">Welcome Back ,</span>-->
+        <!--  </ion-col>-->
+        <!--  <ion-col class="ion-no-padding" size="12">-->
+        <!--    <span class="wlcomeClass" class="ion-no-padding">User Utility Dashboard </span>-->
+        <!--  </ion-col>-->
+      </ion-row>
+
+
+      <ion-card class="cardClass" (click)="gotoSubsidyDashboardPage('1')">
+        <ion-row>
+          <ion-col class="colBorderPrePost ion-text-center" size="12">
+            <span class="preClass" *ngIf="httpClient.currentLanguage=='english'"><b>Pre-Verification</b></span>
+            <span class="preClass" *ngIf="httpClient.currentLanguage=='hindi'"><b>कार्य के पूर्व सत्यापन</b></span>
+          </ion-col>
+
+          <ion-col  size="3"
+                    class="colBorder ion-padding ion-text-left">
+             <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Total &nbsp; <br><span class="blueText">{{total}}</span></span>
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">कुल &nbsp; <br><span class="blueText">{{total}}</span></span>
+          </ion-col>
+          <ion-col   size="4"
+                   class="colBorder ion-padding ion-text-left">
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Pending &nbsp; <br><span class="yellowText">{{totalPending}}</span></span>
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">लंबित &nbsp; <br><span class="yellowText">{{totalPending}}</span></span>
+          </ion-col>
+          <ion-col  size="5"
+                   class="colBorder ion-padding ion-text-left">
+             <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Complete &nbsp; <br><span class="greenText">{{totalComplete}}</span></span>
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण &nbsp; <br><span class="greenText">{{totalComplete}}</span></span>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+        <ion-card class="cardClass" *ngIf="roleName_EN == 'Manufacturer'" (click)="gotoSubsidyDashboardPage('2')">
+          <ion-row>
+            <ion-col class="colBorderPrePost ion-text-center" size="12">
+              <span class="preClass" *ngIf="httpClient.currentLanguage=='english'"><b>Assigned to Dealer</b></span>
+              <span class="preClass" *ngIf="httpClient.currentLanguage=='hindi'"><b>डीलर को सौंपा</b></span>
+            </ion-col>
+
+            <ion-col   size="3" class="colBorder ion-padding ion-text-left">
+               <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Total &nbsp; <br><span class="blueText">{{totalD}}</span></span>
+              <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">कुल &nbsp; <br><span class="blueText">{{totalD}}</span></span>
+            </ion-col>
+          <ion-col size="4"   class="colBorder ion-padding ion-text-left">
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Pending &nbsp; <br><span class="yellowText">{{totalPendingD}}</span></span>
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">लंबित &nbsp; <br><span class="yellowText">{{totalPendingD}}</span></span>
+
+          </ion-col>
+          <ion-col   size="5" class="colBorder ion-padding ion-text-left">
+             <span class="pcClass" *ngIf="httpClient.currentLanguage=='english'">Complete &nbsp; <br><span class="greenText">{{totalCompleteD}}</span></span>
+            <span class="pcClass" *ngIf="httpClient.currentLanguage=='hindi'">पूर्ण &nbsp; <br><span class="greenText">{{totalCompleteD}}</span></span>
+          </ion-col>
+
+
+        </ion-row>
+      </ion-card>
+
+
+    </div>
+
+   </div>
+  <!-- <div class="ion-padding">
+      <ion-button expand="block" (click)="syncPage()">SYNC Data Online </ion-button>
+  </div> -->
+
+
+<!--  <ion-grid fixed>-->
+<!--    <ion-row>-->
+<!--      <ion-col class="ion-text-center">-->
+<!--        <ion-button (click)="checkGPSPermission()">-->
+<!--          Request GPS Accuracy-->
+<!--        </ion-button>-->
+<!--      </ion-col>-->
+<!--    </ion-row>-->
+<!--    <ion-row>-->
+<!--      <ion-col size="4">Longitude</ion-col>-->
+<!--      <ion-col> {{locationCoords.longitude}}</ion-col>-->
+<!--    </ion-row>-->
+<!--    <ion-row>-->
+<!--      <ion-col size="4">Latitude</ion-col>-->
+<!--      <ion-col>{{locationCoords.latitude}}</ion-col>-->
+<!--    </ion-row>-->
+<!--    <ion-row>-->
+<!--      <ion-col size="4">Accuracy</ion-col>-->
+<!--      <ion-col>{{locationCoords.accuracy}}</ion-col>-->
+<!--    </ion-row>-->
+<!--    <ion-row>-->
+<!--      <ion-col size="4">Timestamp</ion-col>-->
+<!--      <ion-col>{{locationCoords.timestamp | date:'medium'}}</ion-col>-->
+<!--    </ion-row>-->
+<!--  </ion-grid>-->
+</ion-content>
+
+<!--</div>-->

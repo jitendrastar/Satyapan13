@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="httpClient.currentLanguage=='hindi'">असाइन सूची</span>
+      <span *ngIf="httpClient.currentLanguage=='english'">Assign List</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="httpClient.changeLanguage()">
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+            class="lang_change_color">/अ</span></span>
+        <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+            class="lang_change_color">/A</span></span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item style="text-align: right;" lines="none">
+    <span>
+      <span *ngIf="httpClient.currentLanguage=='hindi'"> लंबित</span>
+      <span *ngIf="httpClient.currentLanguage=='english'">Pending</span>
+    </span>
+    <ion-toggle [(ngModel)]="completed"></ion-toggle>
+    <span> <span *ngIf="httpClient.currentLanguage=='hindi'">
+        पूर्ण
+      </span>
+      <span *ngIf="httpClient.currentLanguage=='english'">Completed</span>
+    </span>
+  </ion-item>
+  <!--
+  Completed List Start
+-->
+  <div *ngIf="applicantList.length>0">
+    <div *ngFor="let data of applicantList;let i=index;">
+      <ion-row *ngIf="data.Status == 'Completed' && completed" style="border-bottom: 1px solid #f4f4f4;padding-top:10px;padding-bottom:10px;">
+
+        <ion-col class="ion-text-center" style="margin-left:0px;" (click)="verificationDetails(data)">
+          <img alt="userimg" src="{{data.PhotoPath}}" *ngIf="data.PhotoPath" width="50px" height="50px"
+            style="border-radius: 180px" />
+          <img alt="userimg" src="assets/imgs/user.png" *ngIf="!data.PhotoPath" width="50px" height="50px"
+            style="border-radius: 180px" />
+          <br />
+          <a href="tel:{{data.MobileNo}}">
+            <ion-button *ngIf="httpClient.currentLanguage=='english'" style="font-size: 10px" size="small"
+              fill="outline">
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              Call
+            </ion-button>
+            <ion-button *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 10px" size="small" fill="outline">
+              <ion-icon slot="start" name="call-outline"></ion-icon> कॉल
+            </ion-button>
+          </a>
+        </ion-col>
+
+        <ion-col style="line-height: 17px;" (click)="verificationDetails(data)">
+          <span style="font-size: 0.9em" class="ion-text-wrap"><b>{{data.ApplicantName}}</b></span><br>
+
+          <span style="font-size: 0.9em" class="ion-text-wrap"><span *ngIf="httpClient.currentLanguage=='hindi'"
+              style="color: #969696">पिता</span><span *ngIf="httpClient.currentLanguage=='english'"
+              style="color: #969696">Father</span> : {{data.Fathername}}</span><br>
+
+          <span style="color: #969696;font-size: 13px">
+            <span *ngIf="httpClient.currentLanguage=='english'">Mobile No</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">मोबाइल</span>: {{data.MobileNo}}</span><br>
+
+
+
+          <span style="color: #969696;font-size: 13px">
+          <span *ngIf="httpClient.currentLanguage=='english'"><b>Application Type</b></span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'">आवेदन का प्रकार</span>: {{data.ApplicationType}}</span><br>
+
+
+          <span style="font-size: 0.8em" class="ion-text-wrap"><span style="color: #969696">
+              <span *ngIf="httpClient.currentLanguage=='english'">Email</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">ईमेल</span>
+
+              :</span>
+            {{data.Email}}</span>
+        </ion-col>
+        <ion-col (click)="verificationDetails(data)">
+          <span style="color:darkgray;font-size: 0.8em">{{data.ApplicationNo}}</span>
+          <ion-row>
+            <ion-col class="ion-text-center ion-no-padding" size="12">
+
+            </ion-col>
+
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+      <ion-row *ngIf="data.Status == 'Pending' && !completed" style="border-bottom: 1px solid #f4f4f4;padding-top:10px;padding-bottom:10px;">
+
+        <ion-col class="ion-text-center" style="margin-left:0px;" (click)="verificationDetails(data)">
+          <img alt="userimg" src="{{data.PhotoPath}}" *ngIf="data.PhotoPath" width="50px" height="50px"
+            style="border-radius: 180px" />
+          <img alt="userimg" src="assets/imgs/user.png" *ngIf="!data.PhotoPath" width="50px" height="50px"
+            style="border-radius: 180px" />
+          <br />
+          <a href="tel:{{data.MobileNo}}">
+            <ion-button *ngIf="httpClient.currentLanguage=='english'" style="font-size: 10px" size="small"
+              fill="outline">
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              Call
+            </ion-button>
+            <ion-button *ngIf="httpClient.currentLanguage=='hindi'" style="font-size: 10px" size="small" fill="outline">
+              <ion-icon slot="start" name="call-outline"></ion-icon> कॉल
+            </ion-button>
+          </a>
+        </ion-col>
+
+        <ion-col style="line-height: 17px;" (click)="verificationDetails(data)">
+          <span style="font-size: 0.9em" class="ion-text-wrap"><b>{{data.ApplicantName}}</b></span><br>
+
+          <span style="font-size: 0.9em" class="ion-text-wrap"><span *ngIf="httpClient.currentLanguage=='hindi'"
+              style="color: #969696">पिता</span><span *ngIf="httpClient.currentLanguage=='english'"
+              style="color: #969696">Father</span> : {{data.Fathername}}</span><br>
+
+          <span style="color: #969696;font-size: 13px">
+            <span *ngIf="httpClient.currentLanguage=='english'">Mobile No</span>
+            <span *ngIf="httpClient.currentLanguage=='hindi'">मोबाइल</span>: {{data.MobileNo}}</span><br>
+          <span style="color: #969696;font-size: 13px">
+          <span *ngIf="httpClient.currentLanguage=='english'"><b>Application Type</b></span>
+          <span *ngIf="httpClient.currentLanguage=='hindi'">आवेदन का प्रकार</span>: {{data.ApplicationType}}</span><br>
+
+          <span style="font-size: 0.8em" class="ion-text-wrap"><span style="color: #969696">
+              <span *ngIf="httpClient.currentLanguage=='english'">Email</span>
+              <span *ngIf="httpClient.currentLanguage=='hindi'">ईमेल</span>
+
+              :</span>
+            {{data.Email}}</span>
+        </ion-col>
+        <ion-col (click)="verificationDetails(data)">
+          <span style="color:darkgray;font-size: 0.8em">{{data.ApplicationNo}}</span>
+          <ion-row>
+            <ion-col class="ion-text-center ion-no-padding" size="12">
+
+            </ion-col>
+
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

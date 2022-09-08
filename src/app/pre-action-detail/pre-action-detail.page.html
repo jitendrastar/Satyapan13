@@ -1,0 +1,544 @@
+<ion-header>
+    <ion-toolbar color="light">
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <div *ngIf="httpClient.currentLanguage=='english'" class="ion-text-center">
+            <p style="font-size: 1em">{{farmerName}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> Village : </span><span
+                style="color: black;font-size: 0.8em;">{{village}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> Tehsil : </span><span
+                style="color: black;font-size: 0.8em;">{{block}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> District : </span><span
+                style="color: black;font-size: 0.8em;">{{district}}</span>
+        </div>
+        <div *ngIf="httpClient.currentLanguage=='hindi'" class="ion-text-center paddingLeftRight">
+            <p style="font-size: 1em">{{farmerNameH}}</p>
+            <span style="color: #969696;font-size: 0.8em;"> गाँव : </span><span
+                style="color: black;font-size: 0.8em;">{{villageH}} ,</span>
+            <span style="color: #969696;font-size: 0.8em;"> तहसील : </span><span
+                style="color: black;font-size: 0.8em;">{{blockH}}</span>
+            <span style="color: #969696;font-size: 0.8em;"> जिला : </span><span
+                style="color: black;font-size: 0.8em;">{{districtH}}</span>
+        </div>
+        <div slot="end" (click)="httpClient.changeLanguage()" class="ion-text-center paddingLeftRight">
+            <span style="font-size: 0.7em;color: #00AB50;font-weight: 700;margin-top: 4px">{{creationDate}}</span><br>
+            <span class="lang_change" *ngIf="httpClient.currentLanguage=='english'">A<span
+                    class="lang_change_color">/अ</span></span>
+            <span class="lang_change" *ngIf="httpClient.currentLanguage=='hindi'">अ<span
+                    class="lang_change_color">/A</span></span>
+        </div>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+    <div>
+
+        <form>
+            <ion-segment [(ngModel)]="userTab" name="userTab">
+                <ion-segment-button value="Action">
+                    <ion-label *ngIf="httpClient.currentLanguage=='english'">Action</ion-label>
+                    <ion-label *ngIf="httpClient.currentLanguage=='hindi'">कार्य</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="viewDetails">
+                    <ion-label *ngIf="httpClient.currentLanguage=='english'">View Details</ion-label>
+                    <ion-label *ngIf="httpClient.currentLanguage=='hindi'">विवरण देखें</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <div [ngSwitch]="userTab">
+
+                <ion-list *ngSwitchCase="'Action'">
+
+                    <ion-list>
+                        <ion-radio-group [ngModel]="isFarmerAcceptance" name="isFarmerAcceptance"
+                            (ionChange)="getFarmerAccaptance($event)">
+                            <ion-list-header>
+                                <ion-label>
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Farmer agrees for pre-verification ?
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        प्री वेरिफिकेशन के लिए कृषक सहमत है ?
+                                    </span>
+                                </ion-label>
+                            </ion-list-header>
+
+                            <ion-item>
+                                <ion-label>
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Yes
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        हां
+                                    </span>
+
+                                </ion-label>
+                                <ion-radio slot="start" value="Yes"></ion-radio>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label>
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        No
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        नहीं
+                                    </span>
+                                </ion-label>
+                                <ion-radio slot="start" value="No"></ion-radio>
+                            </ion-item>
+
+
+                        </ion-radio-group>
+                    </ion-list>
+
+                    <ion-grid *ngIf="notAcceptanceDocPathRow" class="ion-padding">
+                        <div *ngIf="subsidySchemeId!='5'">
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Proposed location of farm pond
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        खेत तलाई का प्रस्तावित स्थान
+                                    </span>
+
+                                </ion-label>
+                                <ion-input type="text" disabled [(ngModel)]="khasraNo" name="khasraNo"></ion-input>
+                            </ion-item>
+                            <ion-item class="ddCompNameBorder">
+                                <ion-label position="floating">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Suitable khasara for of farm pond
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        खेत तलाई के लिए चयनित खसरा नंबर
+                                    </span>
+                                </ion-label>
+                                <ion-input pattern="[0-9.,/]+" type="tel" [(ngModel)]="locationOfSubsidy"
+                                    name="locationOfSubsidy"></ion-input>
+                            </ion-item>
+                        </div>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Checklist For Verification
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        सत्यापन के लिए चेकलिस्ट
+                                    </span>
+
+                                    <span style="color: red">
+                                        *</span>
+                                </p>
+                            </ion-col>
+                        </ion-row>
+
+
+                        <ion-card style="border-radius: 20px"
+                            *ngFor="let data of preVerificationChecklistData; let i=index;">
+
+                            <ion-card-content>
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col size="2" style="margin-top: 7px;"><span class="clsEye1">&nbsp;{{i +
+                                                1}}&nbsp;</span>
+                                        </ion-col>
+                                        <ion-col size="6" class="clsbtwntxt"><b>
+                                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                                    {{data.ChecklistMasterENGLISH}}
+                                                </span>
+                                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                                    {{data.ChecklistMasterHINDI}}
+                                                </span>
+
+                                            </b>
+                                        </ion-col>
+
+                                        <ion-col class="ion-text-center" size="2">
+                                            <ion-icon class="clsEye2" name="close" *ngIf="!data.isSelectedClose"
+                                                (click)="checkedClose(i,data.isSelectedClose)"></ion-icon>
+                                            <ion-icon class="clscloseRed" name="close" *ngIf="data.isSelectedClose"
+                                                (click)="checkedClose(i,data.isSelectedClose)"></ion-icon>
+                                        </ion-col>
+                                        <ion-col class="ion-text-center" size="2">
+
+                                            <ion-icon class="clsEye2" name="checkmark" *ngIf="!data.isSelectedCheck"
+                                                (click)="checkedCheck(i,data.isSelectedCheck)"></ion-icon>
+                                            <ion-icon class="clsCheckGreen" name="checkmark"
+                                                *ngIf="data.isSelectedCheck"
+                                                (click)="checkedCheck(i,data.isSelectedCheck)"></ion-icon>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-card-content>
+                        </ion-card>
+
+                        <ion-row>
+                            <ion-col size="12">
+                                <p class="checklist_Varifaction">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Upload Documents
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        दस्तावेज़ अपलोड करे
+                                    </span>
+
+                                    <span style="color: red"> *</span>
+                                </p>
+                            </ion-col>
+                        </ion-row>
+
+
+                        <ion-row>
+                            <ion-col class="ion-text-center" size="3">
+                                <img (click)="selectImage('ImgSignedMap')" alt="userimg" src="assets/imgs/camra.png"
+                                    width="30px" height="30px"
+                                    style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                            </ion-col>
+                            <ion-col size="9">
+                                <span style="font-size: 0.8em;color: #9a9a9a">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Upload
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        अपलोड
+                                    </span>
+                                </span><br>
+                                <span style="font-size: 0.9em;color: black">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        "Nazaria Naksha"
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        "नज़रिया नक्शा"
+                                    </span>
+
+                                </span><br>
+                                <span *ngIf="imgSignedMapDateTime" style="font-size: 0.9em;color: #00AB50">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Photo Uploaded
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        फोटो अपलोड की गई </span>
+
+                                </span>
+
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="ion-text-center" size="3">
+                                <img (click)="selectImage('ImgFarmer')" alt="userimg" src="assets/imgs/camra.png"
+                                    width="30px" height="30px"
+                                    style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                            </ion-col>
+                            <ion-col size="9">
+                                <span style="font-size: 0.8em;color: #9a9a9a">Take a picture</span><br>
+                                <span style="font-size: 0.9em;color: black">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Farm pond with farmer and officer
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        किसान और अधिकारी के साथ खेत तलाई
+                                    </span>
+                                </span><br>
+                                <span *ngIf="imgFarmerAndOfficerDateTime" style="font-size: 0.9em;color: #00AB50">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Photo Uploaded
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        फोटो अपलोड की गई
+                                    </span>
+
+                                </span>
+
+
+                            </ion-col>
+
+                        </ion-row>
+
+
+                    </ion-grid>
+                    <div *ngIf="!notAcceptanceDocPathRow">
+                        <ion-row>
+                            <ion-col class="ion-text-center" size="3">
+                                <img (click)="selectImage('ImgFarmer')" alt="userimg" src="assets/imgs/camra.png"
+                                    width="30px" height="30px"
+                                    style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                            </ion-col>
+                            <ion-col size="9">
+                                <span style="font-size: 0.8em;color: #9a9a9a">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Take a picture
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        फोटो लेवें
+                                    </span>
+
+                                </span><br>
+                                <span style="font-size: 0.9em;color: black">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        "With Farmer and Officer"
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        "किसान और अधिकारी के साथ"
+                                    </span>
+
+
+                                </span><br>
+                                <span *ngIf="imgFarmerAndOfficerDateTime" style="font-size: 0.9em;color: #00AB50">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        "Photo Uploaded"
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        "फोटो अपलोड की गई"
+                                    </span>
+
+
+                                </span>
+
+
+                            </ion-col>
+
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="ion-text-center" size="3">
+                                <img (click)="selectImage('NotAcceptanceDocPath')" alt="userimg"
+                                    src="assets/imgs/camra.png" width="30px" height="30px"
+                                    style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                            </ion-col>
+                            <ion-col size="9">
+                                <span style="font-size: 0.8em;color: #9a9a9a">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Upload
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        अपलोड
+                                    </span>
+
+                                </span><br>
+                                <span style="font-size: 0.9em;color: black">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        "Farmer's non-consent letter"
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        "कृषक का असहमति पत्र"
+                                    </span>
+
+                                </span><br>
+                                <span *ngIf="imgNotAcceptanceDocPathDateTime" style="font-size: 0.9em;color: #00AB50">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Photo Uploaded
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        फोटो अपलोड की गई
+                                    </span>
+                                </span>
+
+
+                            </ion-col>
+
+                        </ion-row>
+                    </div>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-buttons>
+                                <ion-button class="login_btn" type="button" (click)="submitCheckList()">
+                                    <span *ngIf="httpClient.currentLanguage=='english'">
+                                        Submit
+                                    </span>
+                                    <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                        जमा करें
+                                    </span>
+
+                                </ion-button>
+                            </ion-buttons>
+                        </ion-col>
+                    </ion-row>
+
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'viewDetails'">
+                    <ion-row class="ion-padding" style="background-color:#eaeaea;padding-bottom: 0">
+                        <ion-col class="ion-text-center" size="4">
+                            <img alt="userimg" src="{{farmerPhoto}}" width="70px" height="70px"
+                                style="border-radius: 180px" />
+
+                        </ion-col>
+                        <ion-col size="8">
+                            <ion-row>
+                                <ion-col class="ion-no-padding" size="12"><span
+                                        style="font-size: 1.0em;font-weight: 700">
+                                        <span *ngIf="httpClient.currentLanguage=='english'">
+                                            {{farmerName}}
+                                        </span>
+                                        <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                            {{farmerNameH}}
+                                        </span>
+
+                                    </span></ion-col>
+                                <ion-col class="ion-no-padding" size="12"><span style="font-size: 0.9em;color: #8b8b8b"
+                                        class="ion-text-wrap">
+                                        <span *ngIf="httpClient.currentLanguage=='english'">
+                                            {{schemeName}}
+                                        </span>
+                                        <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                            {{schemeNameH}}
+                                        </span>
+                                    </span>
+                                </ion-col>
+                                <ion-col class="ion-no-padding" size="12">
+                                    <ion-buttons *ngIf="mobileNo">
+                                        <ion-button class="mobileBtn">
+                                            <span>+91 &nbsp;{{mobileNo}}</span>
+                                        </ion-button>
+                                    </ion-buttons>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row class="colRow">
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    Father Name :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    पिता का नाम :
+                                </span>
+
+
+                            </span>
+                            <span><b>
+                                    {{fatherName}}
+                                </b> </span>
+                        </ion-col>
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    Caste Category :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    जाति श्रेणी :
+                                </span>
+                            </span>
+                            <span><b>{{caste}}</b> </span>
+                        </ion-col>
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    Sub Caste Category :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    उप जाति श्रेणी :
+                                </span>
+
+                            </span>
+                            <span><b>{{subCaste}}</b> </span>
+                        </ion-col>
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    Village :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    गाँव :
+                                </span>
+
+                            </span>
+                            <span><b>{{village}}</b> </span>
+                        </ion-col>
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    Tehsil :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    तहसील :
+                                </span>
+
+                            </span>
+                            <span><b>{{block}}</b> </span>
+                        </ion-col>
+                        <ion-col class="ion-padding" size="12">
+                            <span>
+
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    District :
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    जिला :
+                                </span>
+
+                            </span>
+                            <span><b>{{district}}</b> </span>
+                        </ion-col>
+                    </ion-row>
+                    <ion-label class="ion-padding"><b>
+                            <span *ngIf="httpClient.currentLanguage=='english'">
+                                View Documents
+                            </span>
+                            <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                दस्तावेज़ देखें
+                            </span>
+
+                        </b></ion-label>
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    "Nazaria Naksha"
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    नज़रिया नक्शा
+                                </span>
+
+                            </b><br>
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionNazaria()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="3" class="ion-text-center">
+                            <img alt="userimg" src="assets/imgs/image.png" width="30px" height="30px"
+                                style="border-radius: 10px;background-color:#eaeaea;padding: 4px" />
+                        </ion-col>
+                        <ion-col size="6" style="margin-top: 2%"><b>
+                                <span *ngIf="httpClient.currentLanguage=='english'">
+                                    "Jamabandi"
+                                </span>
+                                <span *ngIf="httpClient.currentLanguage=='hindi'">
+                                    "जमाबन्दी"
+                                </span>
+
+
+                            </b><br>
+
+
+
+                        </ion-col>
+                        <ion-col size="3" (click)="getExtensionJama()">
+                            <ion-icon class="clsEye" name="eye-outline"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+
+            </div>
+        </form>
+
+    </div>
+</ion-content>
